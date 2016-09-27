@@ -5,9 +5,6 @@ namespace Eve\Command;
 use Eve\Message;
 use Eve\SlackClient;
 
-/**
- * CommandManager
- */
 final class CommandManager
 {
     /**

@@ -1,12 +1,9 @@
 <?php
 
-namespace Eve\Command;
+namespace Command;
 
 use Eve\Message;
 
-/**
- * Command
- */
 interface Command
 {
     /**

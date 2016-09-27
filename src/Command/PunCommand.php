@@ -3,12 +3,8 @@
 namespace Eve\Command;
 
 use Eve\Message;
-use Eve\SlackClient;
 
-/**
- * PunCommand
- */
-final class PunCommand implements Command
+final class PunCommand extends ClientCommand
 {
     const PUNS = [
         'I wondered why the baseball was getting bigger. Then it hit me.',
@@ -22,21 +18,6 @@ final class PunCommand implements Command
         "Have you ever tried to eat a clock? It's very time consuming.",
         "It's not that the man did not know how to juggle, he just didn't have the balls to do it.",
     ];
-
-    /**
-     * @var SlackClient
-     */
-    private $client;
-
-    /**
-     * Command constructor.
-     *
-     * @param SlackClient $client
-     */
-    public function __construct(SlackClient $client)
-    {
-        $this->client = $client;
-    }
 
     /**
      * @param Message $message

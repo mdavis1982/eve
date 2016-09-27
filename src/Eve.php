@@ -7,9 +7,6 @@ use Slack\Payload;
 use React\EventLoop\Factory;
 use Eve\Command\CommandManager;
 
-/**
- * Eve
- */
 final class Eve
 {
     public function run()

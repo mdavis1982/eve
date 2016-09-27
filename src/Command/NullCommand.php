@@ -2,6 +2,7 @@
 
 namespace Eve\Command;
 
+use Command\Command;
 use Eve\Message;
 
 /**

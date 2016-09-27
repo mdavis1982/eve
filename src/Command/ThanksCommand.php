@@ -3,9 +3,8 @@
 namespace Eve\Command;
 
 use Eve\Message;
-use Eve\SlackClient;
 
-final class ThanksCommand implements Command
+final class ThanksCommand extends ClientCommand
 {
     const PHRASES = [
         "You're welcome!",
@@ -14,21 +13,6 @@ final class ThanksCommand implements Command
         'No problemo!',
         'No sweat!',
     ];
-
-    /**
-     * @var SlackClient
-     */
-    private $client;
-
-    /**
-     * Command constructor.
-     *
-     * @param SlackClient $client
-     */
-    public function __construct(SlackClient $client)
-    {
-        $this->client = $client;
-    }
 
     /**
      * @param Message $message

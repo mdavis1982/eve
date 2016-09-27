@@ -2,12 +2,10 @@
 
 namespace Eve\Command;
 
+use Command\Command;
 use Eve\Message;
 use Illuminate\Support\Collection;
 
-/**
- * CommandCollection
- */
 final class CommandCollection extends Collection
 {
     /**
