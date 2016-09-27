@@ -25,7 +25,7 @@ class PunCommand extends Command
 
     public function canHandle(Message $message): bool
     {
-        return preg_match('/pun .+/', $message->text());
+        return preg_match('/\b(pun)\b/', $message->text());
     }
     
     public function handle(Message $message)
