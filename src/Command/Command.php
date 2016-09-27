@@ -1,6 +1,6 @@
 <?php
 
-namespace Command;
+namespace Eve\Command;
 
 use Eve\Message;
 

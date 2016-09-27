@@ -2,7 +2,6 @@
 
 namespace Eve\Command;
 
-use Command\Command;
 use Eve\SlackClient;
 
 abstract class ClientCommand implements Command
