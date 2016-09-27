@@ -10,7 +10,7 @@ use Eve\Command\CommandManager;
 /**
  * Eve
  */
-class Eve
+final class Eve
 {
     public function run()
     {
@@ -66,7 +66,7 @@ class Eve
      */
     private function makeManager(SlackClient $client): CommandManager
     {
-        $manager = (new CommandManager($client))
+        $manager = CommandManager::create($client)
             ->addCommand(Command\PingCommand::class)
             ->addCommand(Command\SandwichCommand::class)
             ->addCommand(Command\SlapCommand::class)
@@ -75,5 +75,13 @@ class Eve
         ;
 
         return $manager;
+    }
+
+    /**
+     * @return Eve
+     */
+    public static function create()
+    {
+        return new self();
     }
 }

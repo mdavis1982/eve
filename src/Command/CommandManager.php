@@ -8,7 +8,7 @@ use Eve\SlackClient;
 /**
  * CommandManager
  */
-class CommandManager
+final class CommandManager
 {
     /**
      * @var CommandCollection
@@ -20,7 +20,7 @@ class CommandManager
      *
      * @param SlackClient $client
      */
-    public function __construct(SlackClient $client)
+    private function __construct(SlackClient $client)
     {
         $this->client = $client;
 
@@ -45,5 +45,15 @@ class CommandManager
     public function handle(Message $message)
     {
         $this->commands->commandFor($message)->handle($message);
+    }
+
+    /**
+     * @param SlackClient $client
+     *
+     * @return CommandManager
+     */
+    public static function create(SlackClient $client)
+    {
+        return new self($client);
     }
 }

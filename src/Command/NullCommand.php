@@ -7,7 +7,7 @@ use Eve\Message;
 /**
  * NullCommand
  */
-class NullCommand extends Command
+final class NullCommand implements Command
 {
     /**
      * @param Message $message

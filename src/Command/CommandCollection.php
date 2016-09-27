@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 /**
  * CommandCollection
  */
-class CommandCollection extends Collection
+final class CommandCollection extends Collection
 {
     /**
      * @param Message $message

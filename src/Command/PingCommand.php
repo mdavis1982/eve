@@ -3,12 +3,28 @@
 namespace Eve\Command;
 
 use Eve\Message;
+use Eve\SlackClient;
 
 /**
  * PingCommand
  */
-class PingCommand extends Command
+final class PingCommand implements Command
 {
+    /**
+     * @var SlackClient
+     */
+    private $client;
+
+    /**
+     * Command constructor.
+     *
+     * @param SlackClient $client
+     */
+    public function __construct(SlackClient $client)
+    {
+        $this->client = $client;
+    }
+
     /**
      * @param Message $message
      *

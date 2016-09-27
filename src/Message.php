@@ -2,7 +2,7 @@
 
 namespace Eve;
 
-class Message
+final class Message
 {
     /**
      * Message constructor.

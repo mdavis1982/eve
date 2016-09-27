@@ -5,7 +5,7 @@ namespace Eve;
 use Slack\RealtimeClient;
 use Slack\ChannelInterface;
 
-class SlackClient extends RealtimeClient
+final class SlackClient extends RealtimeClient
 {
     /**
      * @var string

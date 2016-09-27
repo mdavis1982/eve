@@ -3,12 +3,28 @@
 namespace Eve\Command;
 
 use Eve\Message;
+use Eve\SlackClient;
 
 /**
  * SandwichCommand
  */
-class SandwichCommand extends Command
+final class SandwichCommand implements Command
 {
+    /**
+     * @var SlackClient
+     */
+    private $client;
+
+    /**
+     * Command constructor.
+     *
+     * @param SlackClient $client
+     */
+    public function __construct(SlackClient $client)
+    {
+        $this->client = $client;
+    }
+
     /**
      * @param Message $message
      *

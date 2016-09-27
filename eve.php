@@ -9,4 +9,4 @@ $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
 
 // Go!
-(new Eve\Eve())->run();
+Eve\Eve::create()->run();
