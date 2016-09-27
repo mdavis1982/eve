@@ -4,9 +4,6 @@ namespace Eve\Command;
 
 use Eve\Message;
 
-/**
- * NullCommand
- */
 final class NullCommand implements Command
 {
     /**

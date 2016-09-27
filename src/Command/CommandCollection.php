@@ -9,10 +9,18 @@ final class CommandCollection extends Collection
 {
     /**
      * @param Message $message
+     */
+    public function handle(Message $message)
+    {
+        $this->commandFor($message)->handle($message);
+    }
+
+    /**
+     * @param Message $message
      *
      * @return Command
      */
-    public function commandFor(Message $message)
+    private function commandFor(Message $message)
     {
         return $this->filter(function (Command $command) use ($message) {
             return $command->canHandle($message);

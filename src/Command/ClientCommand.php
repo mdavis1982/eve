@@ -16,8 +16,18 @@ abstract class ClientCommand implements Command
      *
      * @param SlackClient $client
      */
-    public function __construct(SlackClient $client)
+    protected function __construct(SlackClient $client)
     {
         $this->client = $client;
+    }
+
+    /**
+     * @param SlackClient $client
+     *
+     * @return static
+     */
+    public static function create(SlackClient $client)
+    {
+        return new static($client);
     }
 }

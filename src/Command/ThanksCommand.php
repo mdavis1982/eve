@@ -2,17 +2,19 @@
 
 namespace Eve\Command;
 
+use Eve\Loader\HasData;
 use Eve\Message;
+use Illuminate\Support\Collection;
+use Eve\Loader\HasDataTrait;
 
-final class ThanksCommand extends ClientCommand
+final class ThanksCommand extends ClientCommand implements HasData
 {
-    const PHRASES = [
-        "You're welcome!",
-        'No worries',
-        'Sure thing',
-        'No problemo!',
-        'No sweat!',
-    ];
+    use HasDataTrait;
+
+    /**
+     * @var Collection
+     */
+    private $data;
 
     /**
      * @param Message $message
@@ -29,9 +31,11 @@ final class ThanksCommand extends ClientCommand
      */
     public function handle(Message $message)
     {
+        $this->loadData();
+
         $messagePrefix = $message->isDm() ? '' : "<@{$message->user()}>: ";
 
-        $content = collect(self::PHRASES)->random();
+        $content = collect($this->data)->random();
 
         $this->client->sendMessage(
             "{$messagePrefix}{$content}",

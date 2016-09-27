@@ -2,10 +2,16 @@
 
 namespace Eve;
 
-use Slack\User;
-use Slack\Payload;
+use Eve\Command\CommandCollection;
+use Eve\Command\PingCommand;
+use Eve\Command\PunCommand;
+use Eve\Command\SandwichCommand;
+use Eve\Command\SlapCommand;
+use Eve\Command\ThanksCommand;
+use Eve\Loader\JsonLoader;
 use React\EventLoop\Factory;
-use Eve\Command\CommandManager;
+use Slack\Payload;
+use Slack\User;
 
 final class Eve
 {
@@ -44,14 +50,14 @@ final class Eve
      */
     private function prepareMessageHandler(SlackClient $client)
     {
-        $manager = $this->makeManager($client);
+        $commandCollection = $this->makeCommandCollection($client);
 
-        $client->on('message', function (Payload $data) use ($client, $manager) {
+        $client->on('message', function (Payload $data) use ($client, $commandCollection) {
             $message = new Message($data->getData());
 
             // Only handle messages sent to the bot
             if ($message->isDm() || false !== stripos($message->text(), "<@{$client->userId()}>")) {
-                $manager->handle($message);
+                $commandCollection->handle($message);
             }
         });
     }
@@ -59,19 +65,17 @@ final class Eve
     /**
      * @param SlackClient $client
      *
-     * @return CommandManager
+     * @return CommandCollection
      */
-    private function makeManager(SlackClient $client): CommandManager
+    private function makeCommandCollection(SlackClient $client): CommandCollection
     {
-        $manager = CommandManager::create($client)
-            ->addCommand(Command\PingCommand::class)
-            ->addCommand(Command\SandwichCommand::class)
-            ->addCommand(Command\SlapCommand::class)
-            ->addCommand(Command\PunCommand::class)
-            ->addCommand(Command\ThanksCommand::class)
+        return CommandCollection::make()
+            ->push(PingCommand::create($client))
+            ->push(SandwichCommand::create($client))
+            ->push(SlapCommand::create($client))
+            ->push(PunCommand::create($client)->setLoader(new JsonLoader(__DIR__ . '/../data/puns.json')))
+            ->push(ThanksCommand::create($client)->setLoader(new JsonLoader(__DIR__ . '/../data/thank-you.json')))
         ;
-
-        return $manager;
     }
 
     /**
