@@ -2,12 +2,11 @@
 
 namespace Eve\Command;
 
-use Slack\User;
 use Eve\Message;
-use Slack\Channel;
-use Eve\SlackClient;
-use Slack\ChannelInterface;
 
+/**
+ * PunCommand
+ */
 class PunCommand extends Command
 {
     const PUNS = [
@@ -23,16 +22,24 @@ class PunCommand extends Command
         "It's not that the man did not know how to juggle, he just didn't have the balls to do it.",
     ];
 
+    /**
+     * @param Message $message
+     *
+     * @return bool
+     */
     public function canHandle(Message $message): bool
     {
         return preg_match('/\b(pun)\b/', $message->text());
     }
-    
+
+    /**
+     * @param Message $message
+     */
     public function handle(Message $message)
     {
         $messagePrefix = $message->isDm() ? '' : "<@{$message->user()}>: ";
         $content       = collect(self::PUNS)->random();
-        
+
         $this->client->sendMessage(
             "{$messagePrefix}{$content}",
             $message->channel()

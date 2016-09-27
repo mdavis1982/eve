@@ -5,9 +5,9 @@ namespace Eve\Command;
 use Eve\Message;
 
 /**
- * PingCommand
+ * NullCommand
  */
-class PingCommand extends Command
+class NullCommand extends Command
 {
     /**
      * @param Message $message
@@ -16,7 +16,7 @@ class PingCommand extends Command
      */
     public function canHandle(Message $message): bool
     {
-        return false !== stripos($message->text(), 'ping');
+        return true;
     }
 
     /**
@@ -24,11 +24,6 @@ class PingCommand extends Command
      */
     public function handle(Message $message)
     {
-        $messagePrefix = $message->isDm() ? '' : "<@{$message->user()}>: ";
-
-        $this->client->sendMessage(
-            "{$messagePrefix}Pong!",
-            $message->channel()
-        );
+        ; // Do what Matthew does all day
     }
 }

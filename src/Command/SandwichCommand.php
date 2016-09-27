@@ -2,19 +2,26 @@
 
 namespace Eve\Command;
 
-use Slack\User;
 use Eve\Message;
-use Slack\Channel;
-use Eve\SlackClient;
-use Slack\ChannelInterface;
 
+/**
+ * SandwichCommand
+ */
 class SandwichCommand extends Command
 {
+    /**
+     * @param Message $message
+     *
+     * @return bool
+     */
     public function canHandle(Message $message): bool
     {
         return preg_match('/(sudo )?make me a sandwich/', $message->text());
     }
 
+    /**
+     * @param Message $message
+     */
     public function handle(Message $message)
     {
         $messagePrefix = $message->isDm() ? '' : "<@{$message->user()}>: ";
@@ -30,4 +37,3 @@ class SandwichCommand extends Command
         );
     }
 }
-

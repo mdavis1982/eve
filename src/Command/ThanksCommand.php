@@ -3,9 +3,6 @@
 namespace Eve\Command;
 
 use Eve\Message;
-use Slack\Channel;
-use Eve\SlackClient;
-use Slack\ChannelInterface;
 
 class ThanksCommand extends Command
 {
@@ -17,11 +14,19 @@ class ThanksCommand extends Command
         'No sweat!',
     ];
 
+    /**
+     * @param Message $message
+     *
+     * @return bool
+     */
     public function canHandle(Message $message): bool
     {
         return preg_match('/\b(thanks)\b/', $message->text());
     }
 
+    /**
+     * @param Message $message
+     */
     public function handle(Message $message)
     {
         $messagePrefix = $message->isDm() ? '' : "<@{$message->user()}>: ";
@@ -34,4 +39,3 @@ class ThanksCommand extends Command
         );
     }
 }
-
