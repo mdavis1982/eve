@@ -15,6 +15,8 @@ use Slack\User;
 
 final class Eve
 {
+    const DATA_DIRECTORY = __DIR__ . '/../data/';
+
     public function run()
     {
         // Setup
@@ -36,13 +38,19 @@ final class Eve
      */
     private function connect(SlackClient $client)
     {
-        $client->connect()->then(function() use ($client) {
-            echo 'Connected' . PHP_EOL;
+        $client->connect()->then(
+            function () use ($client) {
+                echo 'Connected' . PHP_EOL;
 
-            $client->getAuthedUser()->then(function (User $user) use ($client) {
-                $client->setUserId($user->getId());
-            });
-        });
+                $client->getAuthedUser()->then(
+                    function (User $user) use ($client) {
+                        $client->setUserId($user->getId());
+                    }
+                )
+                ;
+            }
+        )
+        ;
     }
 
     /**
@@ -52,14 +60,17 @@ final class Eve
     {
         $commandCollection = $this->makeCommandCollection($client);
 
-        $client->on('message', function (Payload $data) use ($client, $commandCollection) {
-            $message = new Message($data->getData());
+        $client->on(
+            'message',
+            function (Payload $data) use ($client, $commandCollection) {
+                $message = new Message($data->getData());
 
-            // Only handle messages sent to the bot
-            if ($message->isDm() || false !== stripos($message->text(), "<@{$client->userId()}>")) {
-                $commandCollection->handle($message);
+                // Only handle messages sent to the bot
+                if ($message->isDm() || false !== stripos($message->text(), "<@{$client->userId()}>")) {
+                    $commandCollection->handle($message);
+                }
             }
-        });
+        );
     }
 
     /**
@@ -73,8 +84,8 @@ final class Eve
             ->push(PingCommand::create($client))
             ->push(SandwichCommand::create($client))
             ->push(SlapCommand::create($client))
-            ->push(PunCommand::create($client)->setLoader(new JsonLoader(__DIR__ . '/../data/puns.json')))
-            ->push(ThanksCommand::create($client)->setLoader(new JsonLoader(__DIR__ . '/../data/thank-you.json')))
+            ->push(PunCommand::create($client)->setLoader(new JsonLoader(self::DATA_DIRECTORY . 'puns.json')))
+            ->push(ThanksCommand::create($client)->setLoader(new JsonLoader(self::DATA_DIRECTORY . 'thank-you.json')))
         ;
     }
 
