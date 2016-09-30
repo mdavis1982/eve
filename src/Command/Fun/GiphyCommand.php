@@ -16,7 +16,7 @@ final class GiphyCommand extends ClientCommand
      */
     public function canHandle(Message $message): bool
     {
-        return preg_match('/giphy .+/', $message->text());
+        return preg_match('/\b(giphy)\b/', $message->text());
     }
 
     /**
@@ -24,19 +24,20 @@ final class GiphyCommand extends ClientCommand
      */
     public function handle(Message $message)
     {
-        $client = new GiphyClient();
+        $client = new GiphyClient(getenv('GIPHY_TOKEN'));
 
-        $result = $client->getImageFor(
-            str_replace(' ', '+', trim(substr($message->text(), 19))),
-            getenv('GIPHY_TOKEN')
-        );
+        $matches = [];
+
+        preg_match_all('/giphy (.*)/', $message->text(), $matches);
+
+        $result = $client->getImageFor($matches[1][0]);
 
         if (isset($result)) {
             $info    = json_decode($result, true);
 
-            $content = ">>>" . $info['data']['images']['downsized']['url'];
+            $content = ">" . $info['data']['images']['downsized']['url'];
         } else {
-            $content = ">>> *No giphy found*";
+            $content = "> *No giphy found*";
         }
 
         $this->client->sendMessage(
