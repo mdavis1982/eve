@@ -9,9 +9,9 @@ class GiphyClient
     private $client;
     private $api_key;
 
-    public function __construct(string $api_key)
+    public function __construct()
     {
-        $this->api_key = $api_key;
+        $this->api_key = getenv('GIPHY_TOKEN');
 
         $this->client = new Client([
             'base_uri' => 'http://api.giphy.com/v1/gifs/translate'

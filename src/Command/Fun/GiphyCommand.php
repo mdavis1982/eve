@@ -24,7 +24,7 @@ final class GiphyCommand extends ClientCommand
      */
     public function handle(Message $message)
     {
-        $client = new GiphyClient(getenv('GIPHY_TOKEN'));
+        $client = new GiphyClient();
 
         $matches = [];
 
