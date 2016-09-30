@@ -2,10 +2,9 @@
 
 namespace Eve\Command\Fun;
 
-use Eve\Message;
 use Eve\Command\ClientCommand;
-
 use Eve\Command\GiphyClient;
+use Eve\Message;
 
 final class GiphyCommand extends ClientCommand
 {
