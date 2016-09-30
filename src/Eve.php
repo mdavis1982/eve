@@ -81,6 +81,7 @@ final class Eve
             ->push(Command\Fun\PunCommand::create($client)->setLoader(new JsonLoader(self::DATA_DIRECTORY . 'puns.json')))
             ->push(Command\Conversation\HelloCommand::create($client)->setLoader(new JsonLoader(self::DATA_DIRECTORY . 'hello.json')))
             ->push(Command\Conversation\ThanksCommand::create($client)->setLoader(new JsonLoader(self::DATA_DIRECTORY . 'thank-you.json')))
+            ->push(Command\Fun\GiphyCommand::create($client))
         ;
     }
 

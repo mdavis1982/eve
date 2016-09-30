@@ -12,7 +12,8 @@
         "php": ">=7.0.0",
         "coderstephen/slack-client": "^0.2.5",
         "vlucas/phpdotenv": "^2.4",
-        "illuminate/support": "^5.3"
+        "illuminate/support": "^5.3",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "autoload": {
         "psr-4": {
