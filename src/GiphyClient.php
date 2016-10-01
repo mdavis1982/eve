@@ -18,7 +18,7 @@ class GiphyClient
         ]);
     }
 
-    public function getImageFor(string $search)
+    public function getImageFor(string $search): string
     {
         $response = $this->client->request('GET', '?api_key=' . $this->api_key . '&s=' . $search . '&limit=1');
 
