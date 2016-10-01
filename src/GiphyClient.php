@@ -1,6 +1,6 @@
 <?php
 
-namespace Eve\Command;
+namespace Eve;
 
 use GuzzleHttp\Client;
 
@@ -14,14 +14,14 @@ class GiphyClient
         $this->api_key = getenv('GIPHY_TOKEN');
 
         $this->client = new Client([
-            'base_uri' => 'http://api.giphy.com/v1/gifs/translate'
+            'base_uri' => getenv('GIPHY_URI')
         ]);
     }
 
     public function getImageFor(string $search)
     {
-        $request = $this->client->request('GET', '?api_key=' . $this->api_key . '&s=' . $search . '&limit=1');
+        $response = $this->client->request('GET', '?api_key=' . $this->api_key . '&s=' . $search . '&limit=1');
 
-        return $request->getBody();
+        return $response->getBody();
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Eve\Command\Fun;
 
-use Eve\Command\ClientCommand;
-use Eve\Command\GiphyClient;
 use Eve\Message;
+use Eve\GiphyClient;
+use Eve\Command\ClientCommand;
 
 final class GiphyCommand extends ClientCommand
 {
@@ -26,17 +26,14 @@ final class GiphyCommand extends ClientCommand
         $client = new GiphyClient();
 
         $matches = [];
+        $content = "> *No giphy found*";
 
         preg_match_all('/giphy (.*)/', $message->text(), $matches);
 
-        $result = $client->getImageFor($matches[1][0]);
-
-        if (isset($result)) {
+        if ($matches[1]) {
+            $result  = $client->getImageFor($matches[1][0]);
             $info    = json_decode($result, true);
-
             $content = ">" . $info['data']['images']['downsized']['url'];
-        } else {
-            $content = "> *No giphy found*";
         }
 
         $this->client->sendMessage(
