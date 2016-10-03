@@ -4,23 +4,41 @@ namespace Eve;
 
 use GuzzleHttp\Client;
 
-class GiphyClient
+final class GiphyClient
 {
+    const QUERY_STRING = '?api_key=%s&s=%s&limit=1';
+
+    /**
+     * @var Client
+     */
     private $client;
-    private $api_key;
 
-    public function __construct()
+    /**
+     * @var string
+     */
+    private $apiKey;
+
+    /**
+     * @param Client $client
+     * @param string $apiKey
+     */
+    public function __construct(Client $client, string $apiKey)
     {
-        $this->api_key = getenv('GIPHY_TOKEN');
-
-        $this->client = new Client([
-            'base_uri' => getenv('GIPHY_URI')
-        ]);
+        $this->client = $client;
+        $this->apiKey = $apiKey;
     }
 
+    /**
+     * @param string $search
+     *
+     * @return string
+     */
     public function getImageFor(string $search): string
     {
-        $response = $this->client->request('GET', '?api_key=' . $this->api_key . '&s=' . $search . '&limit=1');
+        $response = $this->client->request(
+            'GET',
+            sprintf(self::QUERY_STRING, $this->apiKey, $search)
+        );
 
         return $response->getBody();
     }

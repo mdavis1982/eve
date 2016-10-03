@@ -9,6 +9,21 @@ use Eve\Command\ClientCommand;
 final class GiphyCommand extends ClientCommand
 {
     /**
+     * @var GiphyClient
+     */
+    private $giphyClient;
+
+    /**
+     * @param GiphyClient $giphyClient
+     */
+    public function setGiphyClient(GiphyClient $giphyClient): self
+    {
+        $this->giphyClient = $giphyClient;
+
+        return $this;
+    }
+
+    /**
      * @param Message $message
      *
      * @return bool
@@ -23,17 +38,21 @@ final class GiphyCommand extends ClientCommand
      */
     public function handle(Message $message)
     {
-        $client = new GiphyClient();
+        if (!$this->giphyClient) {
+            throw new \Exception('No GiphyClient set.');
+        }
 
         $matches = [];
-        $content = "> *No giphy found*";
+        $content = '> No giphy found';
 
         preg_match_all('/giphy (.*)/', $message->text(), $matches);
 
         if ($matches[1]) {
-            $result  = $client->getImageFor($matches[1][0]);
+            $result  = $this->giphyClient->getImageFor($matches[1][0]);
             $info    = json_decode($result, true);
-            $content = ">" . $info['data']['images']['downsized']['url'];
+            if (!empty($data)) {
+                $content = '>' . $info['data']['images']['downsized']['url'];
+            }
         }
 
         $this->client->sendMessage(

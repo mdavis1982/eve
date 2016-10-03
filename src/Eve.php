@@ -2,6 +2,7 @@
 
 namespace Eve;
 
+use GuzzleHttp\Client as HttpClient;
 use Slack\User;
 use Eve\Command;
 use Slack\Payload;
@@ -74,8 +75,13 @@ final class Eve
      */
     private function makeCommandCollection(SlackClient $client): CommandCollection
     {
+        $giphyClient = new GiphyClient(
+            new HttpClient(['base_uri' => getenv('GIPHY_URI')]),
+            getenv('GIPHY_TOKEN')
+        );
+
         return CommandCollection::make()
-            ->push(Command\Fun\GiphyCommand::create($client))
+            ->push(Command\Fun\GiphyCommand::create($client)->setGiphyClient($giphyClient))
             ->push(Command\Fun\SlapCommand::create($client))
             ->push(Command\Fun\SandwichCommand::create($client))
             ->push(Command\Utility\PingCommand::create($client))
