@@ -75,6 +75,7 @@ final class Eve
     private function makeCommandCollection(SlackClient $client): CommandCollection
     {
         return CommandCollection::make()
+            ->push(Command\Fun\GiphyCommand::create($client))
             ->push(Command\Fun\SlapCommand::create($client))
             ->push(Command\Fun\SandwichCommand::create($client))
             ->push(Command\Utility\PingCommand::create($client))
