@@ -13,7 +13,7 @@ Eve is a PHP Slack bot for the Larachat community, powered by community contribu
 In order to get Eve up and running you need the following:
 
 - PHP 7.0 or greater
-- A Slack Bot API token which can be generated in the admin inteface of your Slack account
+- A Slack Bot API token which can be generated in the admin interface of your Slack account
 
 Once you have the API token, copy the `.env.example` file to `.env` and paste in your bot token.
 
