@@ -28,9 +28,10 @@ final class GoogleCommand extends ClientCommand
         
         $google = 'https://www.google.com/#q=';
         $string = $message->text();
-        $prefix = 'google+';
+        $prefix = 'google';
         $index = strpos($string, $prefix) + strlen($prefix);
         $str = substr($string, $index);
+        $str = ltrim($str, '+');
         
         //$content = '_' . $google . str_replace(' ', '+', $message->text()) . '_';
         
