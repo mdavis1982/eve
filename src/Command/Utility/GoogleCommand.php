@@ -7,10 +7,8 @@ use Eve\Loader\HasData;
 use Eve\Loader\HasDataTrait;
 use Eve\Command\ClientCommand;
 
-final class GoogleCommand extends ClientCommand implements HasData
+final class GoogleCommand extends ClientCommand
 {
-    use HasDataTrait;
-
     /**
      * @param Message $message
      *
@@ -26,8 +24,6 @@ final class GoogleCommand extends ClientCommand implements HasData
      */
     public function handle(Message $message)
     {
-        $this->loadData();
-
         $receiver = $this->receiver($message);
 
         $content = '';
