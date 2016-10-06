@@ -28,12 +28,12 @@ final class GoogleCommand extends ClientCommand
         
         $google = 'https://www.google.com/#q=';
         $string = $message->text();
-        $prefix = 'google';
+        $prefix = 'google+';
         $index = strpos($string, $prefix) + strlen($prefix);
         $str = substr($string, $index);
-        $str1 = ltrim($str, '+');
+        $str = ltrim($str, '+');
         
-        $content = $google . str_replace(' ', '+', $str1);
+        $content = $google . str_replace(' ', '+', $str);
         
         $this->client->sendMessage(
             "{$messagePrefix}{$content}",
