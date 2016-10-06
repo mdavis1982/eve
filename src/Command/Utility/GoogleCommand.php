@@ -46,7 +46,7 @@ final class GoogleCommand extends ClientCommand
         if($str == null)
         {
            $this->client->sendMessage(
-                "Send some keywords for me to search",
+                "{$messagePrefix} Send some keywords for me to search",
                 $message->channel()
             ); 
         } else{
