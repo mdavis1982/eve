@@ -35,7 +35,7 @@ final class GoogleCommand extends ClientCommand
         
         //$content = '_' . $google . str_replace(' ', '+', $message->text()) . '_';
         
-        $content = '_' . $google . str_replace(' ', '+', $str) . '_';
+        $content = $google . str_replace(' ', '+', $str);
         
         $this->client->sendMessage(
             "{$messagePrefix}{$content}",
