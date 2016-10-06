@@ -31,9 +31,9 @@ final class GoogleCommand extends ClientCommand
         $prefix = 'google';
         $index = strpos($string, $prefix) + strlen($prefix);
         $str = substr($string, $index);
-        $str = substr($str, 1);
+        $str = urlencode(substr($str, 1));
         
-        $content = urlencode($google . str_replace(' ', '+', $str));
+        $content = $google . str_replace(' ', '+', $str);
         
         $this->client->sendMessage(
             "{$messagePrefix}{$content}",
