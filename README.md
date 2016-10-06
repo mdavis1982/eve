@@ -40,6 +40,7 @@ Eve is currently in a very early alpha stage, and as such things are changing qu
 - Pun (`@eve pun`)
 - Sandwich (`@eve make me a sandwich`)
 - Slap (`@eve slap @someone`)
+- Google ('@eve google keywords')
 
 The roadmap is as follows:
 
