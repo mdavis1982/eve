@@ -85,6 +85,7 @@ final class Eve
             ->push(Command\Fun\SlapCommand::create($client)->setLoader(new JsonLoader(self::DATA_DIRECTORY . 'slaps.json')))
             ->push(Command\Fun\SandwichCommand::create($client))
             ->push(Command\Utility\PingCommand::create($client))
+            ->push(Command\Utility\GoogleCommand::create($client))
             ->push(Command\Fun\PunCommand::create($client)->setLoader(new JsonLoader(self::DATA_DIRECTORY . 'puns.json')))
             ->push(Command\Conversation\HelloCommand::create($client)->setLoader(new JsonLoader(self::DATA_DIRECTORY . 'hello.json')))
             ->push(Command\Conversation\ThanksCommand::create($client)->setLoader(new JsonLoader(self::DATA_DIRECTORY . 'thank-you.json')))
