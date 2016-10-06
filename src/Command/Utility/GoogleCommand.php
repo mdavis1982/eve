@@ -27,11 +27,12 @@ final class GoogleCommand extends ClientCommand
         $messagePrefix = $message->isDm() ? '' : "<@{$message->user()}>: ";
         
         $google = 'https://www.google.com/#q=';
+        $str = substr($message->text(), strpos($message->text(), 'google'));
         
         //$content = '_' . $google . str_replace(' ', '+', $message->text()) . '_';
         
         $content = false === stripos($message->text(), 'sudo') ?
-            '_' . $google . str_replace(' ', '+', $message->text()) . '_' :
+            '_' . $google . str_replace(' ', '+', $str) . '_' :
             ''
         ;
         
