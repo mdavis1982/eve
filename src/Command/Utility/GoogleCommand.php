@@ -28,16 +28,13 @@ final class GoogleCommand extends ClientCommand
         
         $google = 'https://www.google.com/#q=';
         $string = $message->text();
-        $prefix = 'google';
+        $prefix = 'google+';
         $index = strpos($string, $prefix) + strlen($prefix);
         $str = substr($string, $index);
         
         //$content = '_' . $google . str_replace(' ', '+', $message->text()) . '_';
         
-        $content = false === stripos($message->text(), 'sudo') ?
-            '_' . $google . str_replace(' ', '+', $str) . '_' :
-            ''
-        ;
+        $content = '.'_' . $google . str_replace(' ', '+', $str) . '_'.';
         
         $this->client->sendMessage(
             "{$messagePrefix}{$content}",
