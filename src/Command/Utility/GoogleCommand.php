@@ -1,6 +1,6 @@
 <?php
 
-namespace Eve\Command\Fun;
+namespace Eve\Command\Utility;
 
 use Eve\Message;
 use Eve\Loader\HasData;
