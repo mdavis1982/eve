@@ -27,8 +27,8 @@ final class GoogleCommand extends ClientCommand
         $messagePrefix = $message->isDm() ? '' : "<@{$message->user()}>: ";
         
         $google = 'https://www.google.com/#q=';
-        $string = $message->text()
-        $prefix = 'google'
+        $string = $message->text();
+        $prefix = 'google';
         $index = strpos($string, $prefix) + strlen($prefix);
         $str = substr($string, $index);
         
