@@ -31,13 +31,12 @@ final class GoogleCommand extends ClientCommand
         $prefix = 'google';
         $index = strpos($string, $prefix) + strlen($prefix);
         $str = substr($string, $index);
-        $str = ltrim($str, '+');
+        $str = substr($str, 1);
         
         $content = urlencode($google . str_replace(' ', '+', $str));
         
         $this->client->sendMessage(
-            "{$str}",
-            //"{$messagePrefix}{$content}",
+            "{$messagePrefix}{$content}",
             $message->channel()
         );
     }
