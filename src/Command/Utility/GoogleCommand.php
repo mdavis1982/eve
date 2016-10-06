@@ -26,47 +26,18 @@ final class GoogleCommand extends ClientCommand
     {
         $messagePrefix = $message->isDm() ? '' : "<@{$message->user()}>: ";
         
-        $google = 'http://lmgtfy.com/?q=';
+        $google = 'https://www.google.com/#q=';
         
         //$content = '_' . $google . str_replace(' ', '+', $message->text()) . '_';
         
         $content = false === stripos($message->text(), 'sudo') ?
             '_' . $google . str_replace(' ', '+', $message->text()) . '_' :
-            'User is not in the sudoers file. This incident will be reported.'
+            ''
         ;
         
         $this->client->sendMessage(
             "{$messagePrefix}{$content}",
             $message->channel()
         );
-        
-//         $receiver = $this->receiver($message);
-
-//         $content = '';
-
-//         if ($message->text() == null) {            
-//             $content = "Add some keywords if you want me to search for you.\n";
-//         }
-        
-//         $google = 'http://lmgtfy.com/?q=';
-
-//         $content .= '_' . $google . str_replace(' ', '+', $message->text()) . '_';
-
-//         $this->client->sendMessage(
-//             $content,
-//             $message->channel()
-//         );
-    }
-
-    /**
-     * @param Message $message
-     *
-     * @return string
-     */
-    private function receiver(Message $message): string
-    {
-        preg_match('/slap ([<@]+)([\w]+)(>)/', $message->text(), $matches);
-
-        return ($matches[1] ?? '') . ($matches[2] ?? '') . ($matches[3] ?? '');
     }
 }
