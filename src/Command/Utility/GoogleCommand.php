@@ -43,9 +43,19 @@ final class GoogleCommand extends ClientCommand
         
         $content = $google . str_replace(' ', '+', $str);
         
-        $this->client->sendMessage(
-            "{$messagePrefix}{$content}",
-            $message->channel()
-        );
+        if($str == null)
+        {
+           $this->client->sendMessage(
+                "Send some keywords for me to search",
+                $message->channel()
+            ); 
+        } else{
+            $this->client->sendMessage(
+                "{$messagePrefix}{$content}",
+                $message->channel()
+            );
+        }
+        
+        
     }
 }
