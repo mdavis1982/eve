@@ -28,12 +28,10 @@ final class GoogleCommand extends ClientCommand
         
         $google = 'http://lmgtfy.com/?q=';
         
-        $content = false === stripos($message->text(), 'sudo') ?
-            '_' . $google . str_replace(' ', '+', $message->text()) . '_'
-        ;
+        $content = '_' . $google . str_replace(' ', '+', $message->text()) . '_';
         
         $this->client->sendMessage(
-            "{$messagePrefix}{$content}",
+            "{$content}",
             $message->channel()
         );
         
