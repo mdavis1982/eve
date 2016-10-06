@@ -28,7 +28,12 @@ final class GoogleCommand extends ClientCommand
         
         $google = 'http://lmgtfy.com/?q=';
         
-        $content = '_' . $google . str_replace(' ', '+', $message->text()) . '_';
+        //$content = '_' . $google . str_replace(' ', '+', $message->text()) . '_';
+        
+        $content = false === stripos($message->text(), 'sudo') ?
+            '_' . $google . str_replace(' ', '+', $message->text()) . '_' :
+            'User is not in the sudoers file. This incident will be reported.'
+        ;
         
         $this->client->sendMessage(
             "{$messagePrefix}{$content}",
