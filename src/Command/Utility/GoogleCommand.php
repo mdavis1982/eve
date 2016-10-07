@@ -16,7 +16,7 @@ final class GoogleCommand extends ClientCommand
      */
     public function canHandle(Message $message): bool
     {
-        return preg_match('/(sudo )?google/', $message->text());
+        return preg_match('/google/', $message->text());
     }
 
     /**
