@@ -48,8 +48,9 @@ final class GiphyCommand extends ClientCommand
         preg_match_all('/giphy (.*)/', $message->text(), $matches);
 
         if ($matches[1]) {
-            $result  = $this->giphyClient->getImageFor($matches[1][0]);
-            $info    = json_decode($result, true);
+            $result = $this->giphyClient->getImageFor($matches[1][0]);
+            $info   = json_decode($result, true);
+
             if (!empty($info['data'])) {
                 $content = '>' . $info['data']['images']['downsized']['url'];
             }
