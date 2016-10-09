@@ -80,8 +80,14 @@ final class Eve
             getenv('GIPHY_TOKEN')
         );
 
+        $weatherClient = new WeatherClient(
+            new HttpClient(['base_uri' => getenv('OWM_URI')]),
+            getenv('OWM_TOKEN')
+        );
+
         return CommandCollection::make()
             ->push(Command\Fun\GiphyCommand::create($client)->setGiphyClient($giphyClient))
+            ->push(Command\Utility\WeatherCommand::create($client)->setWeatherClient($weatherClient))
             ->push(Command\Fun\SlapCommand::create($client)->setLoader(new JsonLoader(self::DATA_DIRECTORY . 'slaps.json')))
             ->push(Command\Fun\SandwichCommand::create($client))
             ->push(Command\Utility\PingCommand::create($client))
