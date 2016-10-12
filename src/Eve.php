@@ -80,8 +80,13 @@ final class Eve
             getenv('GIPHY_TOKEN')
         );
 
+        $xkcdClient = new XkcdClient(
+            new HttpClient(['base_uri' => getenv('XKCD_URI')])
+        );
+
         return CommandCollection::make()
             ->push(Command\Fun\GiphyCommand::create($client)->setGiphyClient($giphyClient))
+            ->push(Command\Fun\XkcdCommand::create($client)->setXkcdClient($xkcdClient))
             ->push(Command\Fun\SlapCommand::create($client)->setLoader(new JsonLoader(self::DATA_DIRECTORY . 'slaps.json')))
             ->push(Command\Fun\SandwichCommand::create($client))
             ->push(Command\Utility\PingCommand::create($client))
