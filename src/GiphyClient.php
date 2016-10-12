@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 final class GiphyClient
 {
-    const QUERY_STRING = '?api_key=%s&s=%s&limit=1';
+    const QUERY_STRING = '?api_key=%s&s=%s&limit=1&rating=pg-13';
 
     /**
      * @var Client
