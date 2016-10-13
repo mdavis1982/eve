@@ -38,4 +38,3 @@ final class HelloCommand extends ClientCommand implements HasData
         );
     }
 }
-
