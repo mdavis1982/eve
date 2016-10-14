@@ -41,14 +41,14 @@ class Currency extends Command
     {
         $this->line('Gathering daily currency rates');
 
-        Storage::disk('resources')->put('data/rates.json', 'Contents');
 
-        // $response = json_decode(
-        //     $this->client->get(sprintf(
-        //         "http://api.fixer.io/latest"
-        //     ))->getBody(),
-        //     true
-        // );
+
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->get('http://api.fixer.io/latest')
+                           ->getBody();
+
+        Storage::disk('resources')->put('data/rates.json', $response);
 
         // return $response['data'] ? $response['data']['images']['downsized']['url'] : null;
     }

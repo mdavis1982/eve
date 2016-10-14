@@ -25,9 +25,6 @@ final class CurrencyHandler extends Handler
      */
     public function handle(Event $event)
     {
-        $converter = new \CurrencyConverter\Converters\FixerIO();
-
-
         $this->send(
             Message::saying('`conversion in progress`')
             ->inChannel($event->channel())
