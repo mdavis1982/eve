@@ -1,0 +1,23 @@
+{
+    "DivisionByZeroException": [
+        "Well, it turns out that you can't divide by zero..."
+    ],
+    "SyntaxErrorException": [
+        "Hmm, it looks like you made a typo..."
+    ],
+    "UnknownConstantException": [
+        "You've used a constant I do not know... yet..."
+    ],
+    "UnknownFunctionException": [
+        "One of your used functions is unknown to me, blame my lazy programmer!"
+    ],
+    "UnknownOperatorException": [
+        "One of the operators looks like chinese for me..."
+    ],
+    "UnknownTokenException": [
+        "What is that kind of token?"
+    ],
+    "UnknownVariableException": [
+        "You forgot to tell me about one of the variables."
+    ]
+}
