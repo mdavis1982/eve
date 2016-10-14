@@ -88,7 +88,7 @@ final class CalculateHandler extends Handler
     {
         preg_match('/(?<=calc)(.*?)(--[\w]+|$)/im', $event->text(), $match);
 
-        return $match[1] ?? '';
+        return isset($match[1]) ? $match[1] : '';
     }
 
     /**
@@ -101,7 +101,7 @@ final class CalculateHandler extends Handler
     {
         preg_match_all('/--(\w+)[=: ](\w+)/i', $event->text(), $matches);
 
-        if ($matches[1] && $matches[2]) {
+        if (isset($matches[1]) && isset($matches[2])) {
             return array_combine($matches[1], $matches[2]);
         }
 
