@@ -15,9 +15,8 @@ final class CurrencyHandler extends Handler
 
     protected $dataFile = 'currency.json';
 
-
     /**
-     * @param Calculator $calculator
+     * @param JsonLoader $loader
      */
     public function __construct(JsonLoader $loader)
     {
@@ -27,7 +26,7 @@ final class CurrencyHandler extends Handler
     /**
      * {@inheritdoc}
      */
-    public function canHandle(JsonLoader $loader, Event $event)
+    public function canHandle(Event $event)
     {
         return
             $event->isMessage() &&
@@ -41,6 +40,8 @@ final class CurrencyHandler extends Handler
      */
     public function handle(Event $event)
     {
+        $this->loadData();
+
         $arguments = $this->arguments($event);
 
         $this->send(
