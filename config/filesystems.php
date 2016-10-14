@@ -54,6 +54,11 @@ return [
             'visibility' => 'public',
         ],
 
+        'resources' => [
+            'driver'     => 'local',
+            'root'       => 'resources',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key'    => 'your-key',

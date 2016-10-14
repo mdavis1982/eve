@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a829f20983fdb66e62585d0f52674f2d",
-    "content-hash": "c464224da13f325464b363c42c702320",
+    "hash": "4aaf73653b3d56156d6cb76a2f7a77b1",
+    "content-hash": "05bd5367720165c86a2e189bf06cc1a1",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -3008,6 +3008,42 @@
                 "zf2"
             ],
             "time": "2016-06-23 13:44:31"
+        },
+        {
+            "name": "zhikiri/currency-converter",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zhikiri/currency-converter.git",
+                "reference": "809cc8f1f107fca3a43ba9d65f6997995a25bbfd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zhikiri/currency-converter/zipball/809cc8f1f107fca3a43ba9d65f6997995a25bbfd",
+                "reference": "809cc8f1f107fca3a43ba9d65f6997995a25bbfd",
+                "shasum": ""
+            },
+            "require-dev": {
+                "codeception/codeception": "1.8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CurrencyConverter\\": "CurrencyConverter/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Zhivitsa Kirill",
+                    "email": "zhivitsa.kirill.gm@gmail.com"
+                }
+            ],
+            "description": "Library for currency exchange",
+            "time": "2015-12-25 07:31:23"
         }
     ],
     "packages-dev": [
