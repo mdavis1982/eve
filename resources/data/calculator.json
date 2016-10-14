@@ -1,6 +1,7 @@
 {
     "DivisionByZeroException": [
-        "Well, it turns out that you can't divide by zero..."
+        "Well, it turns out that you can't divide by zero...",
+        "Please don't break the universe next time!"
     ],
     "SyntaxErrorException": [
         "Hmm, it looks like you made a typo..."
@@ -12,12 +13,14 @@
         "One of your used functions is unknown to me, blame my lazy programmer!"
     ],
     "UnknownOperatorException": [
-        "One of the operators looks like chinese for me..."
+        "One of the operators looks like Chinese for me..."
     ],
     "UnknownTokenException": [
-        "What is that kind of token?"
+        "What is that kind of token?",
+        "One of your token looks like Chinese to me..."
     ],
     "UnknownVariableException": [
-        "You forgot to tell me about one of the variables."
+        "You forgot to tell me about one of the variables.",
+        "I need all variables to calculate the outcome"
     ]
 }
