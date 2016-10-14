@@ -13,6 +13,7 @@ return [
         App\Handlers\Human\ThanksHandler::class,
         App\Handlers\Media\GiphyHandler::class,
         App\Handlers\Utility\PingHandler::class,
+        App\Handlers\Utility\CalculateHandler::class,
     ],
 
     'services' => [
