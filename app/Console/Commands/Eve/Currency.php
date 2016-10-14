@@ -53,10 +53,8 @@ class Currency extends Command
         );
 
         Storage::disk('resources')->put(
-            'data/rates.json',
+            'data/currency.json',
             json_encode($response, JSON_PRETTY_PRINT)
         );
-
-        // return $response['data'] ? $response['data']['images']['downsized']['url'] : null;
     }
 }
