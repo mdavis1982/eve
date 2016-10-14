@@ -47,7 +47,7 @@ class Currency extends Command
 
         $response = json_decode(
             $client->get(
-                "http://api.fixer.io/latest"
+                'http://api.fixer.io/latest?base=GBP'
             )->getBody(),
             true
         );
