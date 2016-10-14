@@ -138,11 +138,9 @@ final class Eve
     {
         $isAdmin = false;
 
-        $isAdmin = $this->client->getUserById($userId)->done(function ($user) {
-            return $user->isAdmin();
+        $this->client->getUserById($userId)->done(function ($user) use (&$isAdmin) {
+            $isAdmin = $user->isAdmin();
         });
-
-        dump($isAdmin);
 
         return $isAdmin;
     }
