@@ -45,10 +45,17 @@ class Currency extends Command
 
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->get('http://api.fixer.io/latest')
-                           ->getBody();
+        $response = json_decode(
+            $client->get(
+                "http://api.fixer.io/latest"
+            )->getBody(),
+            true
+        );
 
-        Storage::disk('resources')->put('data/rates.json', $response);
+        Storage::disk('resources')->put(
+            'data/rates.json',
+            json_encode($response, JSON_PRETTY_PRINT)
+        );
 
         // return $response['data'] ? $response['data']['images']['downsized']['url'] : null;
     }
