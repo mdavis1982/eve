@@ -32,7 +32,7 @@ final class CurrencyHandler extends Handler
         return
             $event->isMessage() &&
             ($event->isDirectMessage() || $event->mentions($this->eve->userId())) &&
-            $event->matches('/currency .+/i')
+            $event->matches('/convert .+/i')
         ;
     }
 
@@ -44,17 +44,23 @@ final class CurrencyHandler extends Handler
         $this->loadData();
 
         $arguments = $this->arguments($event);
+        $content   = '`@eve convert 10 GPB to USD` or `@eve convert £10 to $`';
 
-        $rates = $this->data['rates'];
+        // convert 10 GBP to USD
+        if ($arguments->count() == 4) {
+            $rates   = $this->data['rates'];
+            $result  = round($arguments[0] * $rates[strtoupper($arguments[3])], 2);
+            $symbol  = Intl::getCurrencyBundle()->getCurrencySymbol('USD');
+            $content = "<@{$event->sender()}> " . $this->symbol($arguments[1]) . strtoupper($arguments[0]) . " is around " . $this->symbol($arguments[3]) . strtoupper($result);
+        }
 
-        $result = round($arguments[0] * $rates[strtoupper($arguments[2])], 2);
-
-        $symbol = Intl::getCurrencyBundle()->getCurrencySymbol('USD');
+        // convert £10 to $
+        if ($arguments->count() == 3) {
+            $content = "<@{$event->sender()}> " . $arguments[0] . " is around ";
+        }
 
         $this->send(
-            Message::saying(
-                "<@{$event->sender()}> " . $this->symbol($arguments[1]) . strtoupper($arguments[0]) . " is around " . $this->symbol($arguments[2]) . strtoupper($result)
-            )
+            Message::saying($content . json_encode($arguments))
             ->inChannel($event->channel())
             ->to($event->sender())
         );
@@ -78,8 +84,8 @@ final class CurrencyHandler extends Handler
     private function arguments(Event $event)
     {
         preg_match_all(
-            '/([\w]+)/',
-            substr($event->text(), strpos($event->text(), 'currency ') + 9),
+            '/\s+/',
+            substr($event->text(), strpos($event->text(), 'convert ') + 8),
             $matches
         );
 
