@@ -45,16 +45,17 @@ final class CurrencyHandler extends Handler
 
         $arguments = $this->arguments($event);
         $content   = '`@eve convert 10 GPB to USD`';
+        $baseRate  = 1;
 
         if ($arguments->count() == 4 && $this->validArguments($arguments)) {
             $rates   = $this->data['rates'];
 
-            if (! array_key_exists($arguments[1], $rates) || ! array_key_exists($arguments[3], $rates)) {
-                return;
-            }
+            $result  = round(
+                (array_key_exists($arguments[0], $rates) ? $arguments[0] : $baseRate) *
+                (array_key_exists($arguments[3], $rates) ? $rates[strtoupper($arguments[3])] : $baseRate),
+                2
+            );
 
-            $result  = round($arguments[0] * $rates[strtoupper($arguments[3])], 2);
-            $symbol  = Intl::getCurrencyBundle()->getCurrencySymbol('USD');
             $content = sprintf(
                 "<@%s> %s%s is around %s%s",
                 $event->sender(),
