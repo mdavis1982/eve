@@ -39,9 +39,7 @@ class Currency extends Command
      */
     public function handle()
     {
-        $this->line('Gathering daily currency rates');
-
-
+        $this->line('Gathering daily currency rates...');
 
         $client = new \GuzzleHttp\Client();
 
@@ -52,9 +50,17 @@ class Currency extends Command
             true
         );
 
+        if (! isset($response['rates'])) {
+            $this->line('Unable to gather currency rates');
+
+            return;
+        }
+
         Storage::disk('resources')->put(
             'data/currency.json',
             json_encode($response, JSON_PRETTY_PRINT)
         );
+
+        $this->line('Currency rates gathered');
     }
 }
