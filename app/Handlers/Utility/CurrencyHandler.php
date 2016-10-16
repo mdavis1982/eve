@@ -46,20 +46,23 @@ final class CurrencyHandler extends Handler
         $arguments = $this->arguments($event);
         $content   = '`@eve convert 10 GPB to USD`';
 
-        if ($arguments->count() == 4) {
-            if (preg_match('/[A-Z]{3}/', $arguments[1]) && trim($arguments[2] == 'to') && preg_match('/[A-Z]{3}/', $arguments[3])) {
-                $rates  = $this->data['rates'];
-                $result = round($arguments[0] * $rates[strtoupper($arguments[3])], 2);
-                $symbol = Intl::getCurrencyBundle()->getCurrencySymbol('USD');
-                $content = sprintf(
-                    "<@%s> %s%s is around %s%s",
-                    $event->sender(),
-                    $this->symbol($arguments[1]),
-                    strtoupper($arguments[0]),
-                    $this->symbol($arguments[3]),
-                    strtoupper($result)
-                );
+        if ($arguments->count() == 4 && $this->validArguments($arguments)) {
+            $rates   = $this->data['rates'];
+
+            if (! array_key_exists($arguments[1], $rates) || ! array_key_exists($arguments[3], $rates)) {
+                return;
             }
+
+            $result  = round($arguments[0] * $rates[strtoupper($arguments[3])], 2);
+            $symbol  = Intl::getCurrencyBundle()->getCurrencySymbol('USD');
+            $content = sprintf(
+                "<@%s> %s%s is around %s%s",
+                $event->sender(),
+                $this->symbol($arguments[1]),
+                strtoupper($arguments[0]),
+                $this->symbol($arguments[3]),
+                strtoupper($result)
+            );
         }
 
         $this->send(
@@ -67,6 +70,19 @@ final class CurrencyHandler extends Handler
             ->inChannel($event->channel())
             ->to($event->sender())
         );
+    }
+
+    /**
+     * @param  $arguments
+     *
+     * @return boolean
+     */
+    private function validArguments($arguments) {
+        return
+            preg_match('/[A-Z]{3}/', $arguments[1]) &&
+            trim($arguments[2] == 'to') &&
+            preg_match('/[A-Z]{3}/', $arguments[3])
+        ;
     }
 
     /**
