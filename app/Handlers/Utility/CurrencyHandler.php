@@ -48,20 +48,27 @@ final class CurrencyHandler extends Handler
         $baseRate  = 1;
 
         if ($arguments->count() == 4 && $this->validArguments($arguments)) {
-            $rates   = $this->data['rates'];
+            $rates = $this->data['rates'];
 
-            if (! array_key_exists($arguments[1], $rates) || ! array_key_exists($arguments[3], $rates)) {
+            if (! array_key_exists($arguments[3], $rates) && ! array_key_exists($arguments[1], $rates)) {
                 return;
             }
 
-            $result  = round($arguments[0] * $rates[strtoupper($arguments[3])], 2);
+            if (array_key_exists($arguments[3], $rates) && array_key_exists($arguments[1], $rates)) {
+                $result = round($arguments[0] * $rates[strtoupper($arguments[3])], 2);
+            }
+
+            if (! array_key_exists($arguments[3], $rates) && array_key_exists($arguments[1], $rates)) {
+                $result = round($arguments[0] * $rates[strtoupper($arguments[1])], 2);
+            }
+
             $content = sprintf(
                 "<@%s> %s%s is around %s%s",
                 $event->sender(),
                 $this->symbol($arguments[1]),
-                strtoupper($arguments[0]),
+                $arguments[0],
                 $this->symbol($arguments[3]),
-                strtoupper($result)
+                $result
             );
         }
 
