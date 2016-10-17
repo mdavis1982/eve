@@ -4,6 +4,7 @@ namespace App\Console\Commands\Eve;
 
 use Storage;
 use GuzzleHttp\Client;
+use App\Client\FixerClient;
 use Illuminate\Console\Command;
 
 class Currency extends Command
@@ -37,21 +38,14 @@ class Currency extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(FixerClient $client)
     {
         $this->line('Gathering daily currency rates...');
 
-        $client = new \GuzzleHttp\Client();
-
-        $response = json_decode(
-            $client->get(
-                'http://api.fixer.io/latest?base=GBP'
-            )->getBody(),
-            true
-        );
+        $response = $client->rates('GBP');
 
         if (! isset($response['rates'])) {
-            $this->line('Unable to gather currency rates');
+            $this->error('Unable to gather currency rates');
 
             return;
         }

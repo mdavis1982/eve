@@ -48,18 +48,19 @@ final class CurrencyHandler extends Handler
         $baseRate  = 1;
 
         if ($arguments->count() == 4 && $this->validArguments($arguments)) {
-            $rates = $this->data['rates'];
+            $rates  = $this->data['rates'];
+            $result = '';
 
-            if (! array_key_exists($arguments[3], $rates) && ! array_key_exists($arguments[1], $rates)) {
+            if (! array_key_exists($arguments[1], $rates) && ! array_key_exists($arguments[3], $rates)) {
                 return;
             }
 
-            if (array_key_exists($arguments[3], $rates) && array_key_exists($arguments[1], $rates)) {
-                $result = round($arguments[0] * $rates[strtoupper($arguments[3])], 2);
+            if (array_key_exists($arguments[1], $rates) && array_key_exists($arguments[3], $rates)) {
+                $result = number_format($arguments[0] * $rates[strtoupper($arguments[3])], 2);
             }
 
-            if (! array_key_exists($arguments[3], $rates) && array_key_exists($arguments[1], $rates)) {
-                $result = round($arguments[0] * $rates[strtoupper($arguments[1])], 2);
+            if (array_key_exists($arguments[1], $rates) && ! array_key_exists($arguments[3], $rates)) {
+                $result = number_format($arguments[0] * $rates[strtoupper($arguments[1])], 2);
             }
 
             $content = sprintf(
