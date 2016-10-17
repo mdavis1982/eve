@@ -60,7 +60,19 @@ final class CurrencyHandler extends Handler
             }
 
             if (array_key_exists($arguments[1], $rates) && ! array_key_exists($arguments[3], $rates)) {
-                $result = number_format($arguments[0] * $rates[strtoupper($arguments[1])], 2);
+                if ($rates[strtoupper($arguments[1])] > $baseRate) {
+                    $result = number_format($arguments[0] * $rates[strtoupper($arguments[1])], 2);
+                } else {
+                    $result = number_format($arguments[0] / $rates[strtoupper($arguments[1])], 2);
+                }
+            }
+
+            if (! array_key_exists($arguments[1], $rates) && array_key_exists($arguments[3], $rates)) {
+                if ($rates[strtoupper($arguments[3])] > $baseRate) {
+                    $result = number_format($arguments[0] / $rates[strtoupper($arguments[3])], 2);
+                } else {
+                    $result = number_format($arguments[0] * $rates[strtoupper($arguments[3])], 2);
+                }
             }
 
             $content = sprintf(
