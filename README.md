@@ -1,10 +1,10 @@
 ```
-  _____           
- | ____|_   _____ 
+  _____
+ | ____|_   _____
  |  _| \ \ / / _ \
  | |___ \ V /  __/
  |_____| \_/ \___|
-                  
+
 # A Slack bot
 ```
 Eve is a PHP Slack bot for the Larachat community, powered by community contributions.
@@ -42,6 +42,7 @@ Eve is currently in an early stage, and as such things are changing quickly. Cur
 - Eight Ball (`@eve 8-ball`)
 - Calculate (`@eve calculate 2x + 3y --x=2 --y=4`)
 - Giphy (`@eve giphy test`)
+- Currency Conversion (`@eve convert 10 GBP to USD`)
 
 The roadmap is as follows:
 
