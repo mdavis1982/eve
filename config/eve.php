@@ -25,5 +25,8 @@ return [
             'base_url' => env('GIPHY_BASE_URL'),
             'api_key'  => env('GIPHY_API_KEY'),
         ],
+        'fixer' => [
+            'base_url' => env('FIXER_BASE_URL'),
+        ],
     ],
 ];
