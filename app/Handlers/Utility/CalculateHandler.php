@@ -23,12 +23,14 @@ final class CalculateHandler extends Handler
     private $calculator;
 
     /**
+     * @param JsonLoader $loader
      * @param Calculator $calculator
      */
     public function __construct(JsonLoader $loader, Calculator $calculator)
     {
         $this->loader     = $loader;
         $this->calculator = $calculator;
+        $this->calculator->setSimplifying(false);
     }
 
     /**
