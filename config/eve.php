@@ -17,12 +17,16 @@ return [
         App\Handlers\Moderation\UserJoinsChannelHandler::class,
         App\Handlers\Utility\PingHandler::class,
         App\Handlers\Utility\CalculateHandler::class,
+        App\Handlers\Utility\CurrencyHandler::class,
     ],
 
     'services' => [
         'giphy' => [
             'base_url' => env('GIPHY_BASE_URL'),
             'api_key'  => env('GIPHY_API_KEY'),
+        ],
+        'fixer' => [
+            'base_url' => env('FIXER_BASE_URL'),
         ],
     ],
 ];
