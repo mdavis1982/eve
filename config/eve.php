@@ -17,6 +17,7 @@ return [
         App\Handlers\Moderation\UserJoinsChannelHandler::class,
         App\Handlers\Utility\PingHandler::class,
         App\Handlers\Utility\CalculateHandler::class,
+        App\Handlers\Utility\HelpHandler::class
     ],
 
     'services' => [
