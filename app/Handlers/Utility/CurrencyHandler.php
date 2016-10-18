@@ -44,7 +44,6 @@ final class CurrencyHandler extends Handler
         $this->loadData();
 
         $arguments = $this->arguments($event);
-        $content   = '`@eve convert 10 GPB to USD`';
         $baseRate  = 1;
 
         if ($arguments->count() == 4 && $this->validArguments($arguments)) {
@@ -78,9 +77,9 @@ final class CurrencyHandler extends Handler
             $content = sprintf(
                 "<@%s> %s%s is around %s%s",
                 $event->sender(),
-                $this->symbol($arguments[1]),
+                $this->symbolForCurrency($arguments[1]),
                 $arguments[0],
-                $this->symbol($arguments[3]),
+                $this->symbolForCurrency($arguments[3]),
                 $result
             );
         }
@@ -110,7 +109,7 @@ final class CurrencyHandler extends Handler
      *
      * @return string
      */
-    private function symbol(string $currency)
+    private function symbolForCurrency(string $currency)
     {
         return Intl::getCurrencyBundle()->getCurrencySymbol(strtoupper($currency));
     }

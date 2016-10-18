@@ -54,9 +54,9 @@ return [
             'visibility' => 'public',
         ],
 
-        'resources' => [
+        'data' => [
             'driver'     => 'local',
-            'root'       => 'resources',
+            'root'       => getenv('DATA_PATH'),
         ],
 
         's3' => [

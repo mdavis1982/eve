@@ -10,22 +10,16 @@ use Illuminate\Console\Command;
 class Currency extends Command
 {
     /**
-     * The name and signature of the console command.
-     *
      * @var string
      */
     protected $signature = 'eve:currency';
 
     /**
-     * The console command description.
-     *
      * @var string
      */
     protected $description = 'Get latest currency rates from fixer.io';
 
     /**
-     * Create a new command instance.
-     *
      * @return void
      */
     public function __construct()
@@ -34,7 +28,7 @@ class Currency extends Command
     }
 
     /**
-     * Execute the console command.
+     * @param  FixerClient $client
      *
      * @return mixed
      */
@@ -50,8 +44,8 @@ class Currency extends Command
             return;
         }
 
-        Storage::disk('resources')->put(
-            'data/currency.json',
+        Storage::disk(getenv('DATA_PATH'))->put(
+            'currency.json',
             json_encode($response, JSON_PRETTY_PRINT)
         );
 

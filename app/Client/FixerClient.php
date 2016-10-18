@@ -26,16 +26,16 @@ final class FixerClient
     }
 
     /**
-     * @param string $query
+     * @param string $baseCurrency
      *
      * @return string|null
      */
-    public function rates($query)
+    public function rates($baseCurrency)
     {
         $response = json_decode(
             $this->client->get(sprintf(
                 "{$this->baseUrl}?base=%s",
-                urlencode($query)
+                urlencode($baseCurrency)
             ))->getBody(),
             true
         );
