@@ -43,8 +43,8 @@ final class HelpHandler extends Handler
 
         $this->send(
             Message::saying($message)
-                ->inChannel($event->channel())
                 ->to($event->sender())
+                ->privately()
         );
     }
 }
