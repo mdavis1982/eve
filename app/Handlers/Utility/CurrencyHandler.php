@@ -44,35 +44,20 @@ final class CurrencyHandler extends Handler
         $this->loadData();
 
         $arguments = $this->arguments($event);
-        $baseRate  = 1;
+        $content   = '`@eve convert 10 GPB to USD`';
 
         if ($arguments->count() == 4 && $this->validArguments($arguments)) {
             $rates  = $this->data['rates'];
             $result = '';
 
+            $arguments[1] = strtoupper($arguments[1]);
+            $arguments[3] = strtoupper($arguments[3]);
+
             if (! array_key_exists($arguments[1], $rates) && ! array_key_exists($arguments[3], $rates)) {
                 return;
             }
 
-            if (array_key_exists($arguments[1], $rates) && array_key_exists($arguments[3], $rates)) {
-                $result = number_format($arguments[0] * $rates[strtoupper($arguments[3])], 2);
-            }
-
-            if (array_key_exists($arguments[1], $rates) && ! array_key_exists($arguments[3], $rates)) {
-                if ($rates[strtoupper($arguments[1])] > $baseRate) {
-                    $result = number_format($arguments[0] * $rates[strtoupper($arguments[1])], 2);
-                } else {
-                    $result = number_format($arguments[0] / $rates[strtoupper($arguments[1])], 2);
-                }
-            }
-
-            if (! array_key_exists($arguments[1], $rates) && array_key_exists($arguments[3], $rates)) {
-                if ($rates[strtoupper($arguments[3])] > $baseRate) {
-                    $result = number_format($arguments[0] / $rates[strtoupper($arguments[3])], 2);
-                } else {
-                    $result = number_format($arguments[0] * $rates[strtoupper($arguments[3])], 2);
-                }
-            }
+            $result = $this->getConversionResult($arguments, $rates);
 
             $content = sprintf(
                 "<@%s> %s%s is around %s%s",
@@ -91,6 +76,25 @@ final class CurrencyHandler extends Handler
         );
     }
 
+    private function getConversionResult($arguments, $rates)
+    {
+        $baseRate = 1;
+
+        if (array_key_exists($arguments[1], $rates) && ! array_key_exists($arguments[3], $rates)) {
+            if ($rates[$arguments[1]] > $baseRate) {
+                return number_format($arguments[0] * $rates[$arguments[1]], 2);
+            }
+
+            return number_format($arguments[0] / $rates[$arguments[1]], 2);
+        }
+
+        if ($rates[$arguments[3]] > $baseRate) {
+            return number_format($arguments[0] / $rates[$arguments[3]], 2);
+        }
+
+        return number_format($arguments[0] * $rates[$arguments[3]], 2);
+    }
+
     /**
      * @param  $arguments
      *
@@ -98,9 +102,10 @@ final class CurrencyHandler extends Handler
      */
     private function validArguments($arguments) {
         return
-            preg_match('/[A-Z]{3}/', $arguments[1]) &&
+            preg_match('/[0-9]/', $arguments[0]) &&
+            preg_match('/[a-zA-Z]{3}/', $arguments[1]) &&
             trim($arguments[2] == 'to') &&
-            preg_match('/[A-Z]{3}/', $arguments[3])
+            preg_match('/[a-zA-Z]{3}/', $arguments[3])
         ;
     }
 
