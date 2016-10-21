@@ -43,31 +43,35 @@ final class CurrencyHandler extends Handler
     {
         $this->loadData();
 
+        $rates     = $this->data['rates'];
         $arguments = $this->arguments($event);
         $content   = '`@eve convert 10 GPB to USD`';
+        $result    = '';
 
-        if ($arguments->count() == 4 && $this->validArguments($arguments)) {
-            $rates  = $this->data['rates'];
-            $result = '';
-
-            $arguments[1] = strtoupper($arguments[1]);
-            $arguments[3] = strtoupper($arguments[3]);
-
-            if (! array_key_exists($arguments[1], $rates) && ! array_key_exists($arguments[3], $rates)) {
-                return;
-            }
-
-            $result = $this->getConversionResult($arguments, $rates);
-
-            $content = sprintf(
-                "<@%s> %s%s is around %s%s",
-                $event->sender(),
-                $this->symbolForCurrency($arguments[1]),
-                $arguments[0],
-                $this->symbolForCurrency($arguments[3]),
-                $result
-            );
+        if ($arguments->count() != 4 && !$this->validArguments($arguments)) {
+            return;
         }
+
+        $args = [
+            'conversionAmount'  => $args['conversionAmount'],
+            'primaryCurrency'   => strtoupper($args['primaryCurrency']),
+            'secondaryCurrency' => strtoupper($args['secondaryCurrency']),
+        ];
+
+        if (! array_key_exists($args['primaryCurrency'], $rates) && ! array_key_exists($args['secondaryCurrency'], $rates)) {
+            return;
+        }
+
+        $result = $this->getConversionResult($arguments, $rates);
+
+        $content = sprintf(
+            "<@%s> %s%s is around %s%s",
+            $event->sender(),
+            $this->symbolForCurrency($args['primaryCurrency']),
+            $args['conversionAmount'],
+            $this->symbolForCurrency($args['secondaryCurrency']),
+            $result
+        );
 
         $this->send(
             Message::saying($content)
@@ -76,23 +80,31 @@ final class CurrencyHandler extends Handler
         );
     }
 
+
+    /**
+     * @param  array $arguments
+     * @param  integer $rates
+     *
+     * @return double
+     */
     private function getConversionResult($arguments, $rates)
     {
         $baseRate = 1;
+        $secondArgNotExist = array_key_exists($args['primaryCurrency'], $rates) && ! array_key_exists($args['secondaryCurrency'], $rates);
 
-        if (array_key_exists($arguments[1], $rates) && ! array_key_exists($arguments[3], $rates)) {
-            if ($rates[$arguments[1]] > $baseRate) {
-                return number_format($arguments[0] * $rates[$arguments[1]], 2);
-            }
-
-            return number_format($arguments[0] / $rates[$arguments[1]], 2);
+        if ($secondArgNotExist && $rates[$args['primaryCurrency']] > $baseRate) {
+            return number_format($args['conversionAmount'] * $rates[$args['primaryCurrency']], 2);
         }
 
-        if ($rates[$arguments[3]] > $baseRate) {
-            return number_format($arguments[0] / $rates[$arguments[3]], 2);
+        if ($secondArgNotExist) {
+            return number_format($args['conversionAmount'] / $rates[$args['primaryCurrency']], 2);
         }
 
-        return number_format($arguments[0] * $rates[$arguments[3]], 2);
+        if ($rates[$args['secondaryCurrency']] > $baseRate) {
+            return number_format($args['conversionAmount'] / $rates[$args['secondaryCurrency']], 2);
+        }
+
+        return number_format($args['conversionAmount'] * $rates[$args['secondaryCurrency']], 2);
     }
 
     /**
@@ -102,10 +114,10 @@ final class CurrencyHandler extends Handler
      */
     private function validArguments($arguments) {
         return
-            preg_match('/[0-9]/', $arguments[0]) &&
-            preg_match('/[a-zA-Z]{3}/', $arguments[1]) &&
+            preg_match('/[0-9]/', $args['conversionAmount']) &&
+            preg_match('/[a-zA-Z]{3}/', $args['primaryCurrency']) &&
             trim($arguments[2] == 'to') &&
-            preg_match('/[a-zA-Z]{3}/', $arguments[3])
+            preg_match('/[a-zA-Z]{3}/', $args['secondaryCurrency'])
         ;
     }
 
