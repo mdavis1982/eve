@@ -47,31 +47,30 @@ final class CurrencyHandler extends Handler
         $arguments = $this->arguments($event);
         $content   = '`@eve convert 10 GPB to USD`';
         $result    = '';
+        $baseRate  = 1;
 
-        if ($arguments->count() != 4 && !$this->validArguments($arguments)) {
-            return;
+        if ($arguments->count() == 4 && $this->validArguments($arguments)) {
+            $args = [
+                'conversionAmount'  => $arguments[0],
+                'primaryCurrency'   => strtoupper($arguments[1]),
+                'secondaryCurrency' => strtoupper($arguments[3]),
+            ];
+
+            if (! array_key_exists($args['primaryCurrency'], $rates) && ! array_key_exists($args['secondaryCurrency'], $rates)) {
+                return;
+            }
+
+            $result = $this->getConversionResult($args, $rates);
+
+            $content = sprintf(
+                "<@%s> %s%s is around %s%s",
+                $event->sender(),
+                $this->symbolForCurrency($args['primaryCurrency']),
+                $args['conversionAmount'],
+                $this->symbolForCurrency($args['secondaryCurrency']),
+                $result
+            );
         }
-
-        $args = [
-            'conversionAmount'  => $args['conversionAmount'],
-            'primaryCurrency'   => strtoupper($args['primaryCurrency']),
-            'secondaryCurrency' => strtoupper($args['secondaryCurrency']),
-        ];
-
-        if (! array_key_exists($args['primaryCurrency'], $rates) && ! array_key_exists($args['secondaryCurrency'], $rates)) {
-            return;
-        }
-
-        $result = $this->getConversionResult($arguments, $rates);
-
-        $content = sprintf(
-            "<@%s> %s%s is around %s%s",
-            $event->sender(),
-            $this->symbolForCurrency($args['primaryCurrency']),
-            $args['conversionAmount'],
-            $this->symbolForCurrency($args['secondaryCurrency']),
-            $result
-        );
 
         $this->send(
             Message::saying($content)
@@ -82,14 +81,13 @@ final class CurrencyHandler extends Handler
 
 
     /**
-     * @param  array $arguments
+     * @param  array $args
      * @param  integer $rates
      *
      * @return double
      */
-    private function getConversionResult($arguments, $rates)
+    private function getConversionResult($args, $rates, $baseRate)
     {
-        $baseRate = 1;
         $secondArgNotExist = array_key_exists($args['primaryCurrency'], $rates) && ! array_key_exists($args['secondaryCurrency'], $rates);
 
         if ($secondArgNotExist && $rates[$args['primaryCurrency']] > $baseRate) {
@@ -108,15 +106,15 @@ final class CurrencyHandler extends Handler
     }
 
     /**
-     * @param  $arguments
+     * @param  $args
      *
      * @return boolean
      */
-    private function validArguments($arguments) {
+    private function validArguments($args) {
         return
             preg_match('/[0-9]/', $args['conversionAmount']) &&
             preg_match('/[a-zA-Z]{3}/', $args['primaryCurrency']) &&
-            trim($arguments[2] == 'to') &&
+            trim($args[2] == 'to') &&
             preg_match('/[a-zA-Z]{3}/', $args['secondaryCurrency'])
         ;
     }
