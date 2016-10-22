@@ -43,6 +43,7 @@ eight ball - see the future with Eve             - @eve 8-ball
 calculate  - run a calculation                   - @eve calculate 2x + 3y --x=2 --y=4
 giphy      - get a random related GIF from Giphy - @eve giphy test
 help       - show list of available commands     - @eve help
+laravel    - search the laravel docs             - @eve laravel middleware
 ```
 
 Contributions are welcomed and encouraged.

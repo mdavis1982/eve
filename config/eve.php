@@ -15,6 +15,7 @@ return [
         App\Handlers\Media\GiphyHandler::class,
         App\Handlers\Moderation\WarnHandler::class,
         App\Handlers\Moderation\UserJoinsChannelHandler::class,
+        App\Handlers\Reference\LaravelHandler::class,
         App\Handlers\Utility\PingHandler::class,
         App\Handlers\Utility\CalculateHandler::class,
         App\Handlers\Utility\HelpHandler::class
