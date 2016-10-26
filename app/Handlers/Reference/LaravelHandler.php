@@ -45,12 +45,12 @@ final class LaravelHandler extends Handler
 
         $words = explode(' ',$event->text());
 
-        if(in_array($words[1], $versions)) {
-            $version = $words[1];
-            $query = $words[2];
+        if(in_array($words[2], $versions)) {
+            $version = $words[2];
+            $query = $words[3];
         } else {
-            $version = '5.3';
-            $query = $words[1];
+            $version = $versions[1];
+            $query = $words[2];
         }
 
         try {
