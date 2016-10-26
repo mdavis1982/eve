@@ -65,11 +65,7 @@ final class CalculateHandler extends Handler
                 $query   = $variables ? ' where `' . http_build_query($variables, '', ', ') . '`' : '';
                 $content = "`{$expression} = {$outcome}`{$query}";
             } catch (MathParserException $error) {
-                $errorName = class_basename($error);
-
-                if ($this->data->has($errorName)) {
-                    $content = collect($this->data->get($errorName))->random();
-                }
+                $content = $this->getErrorContent($error) ?: $content;
             }
         }
 
@@ -108,5 +104,23 @@ final class CalculateHandler extends Handler
         }
 
         return [];
+    }
+
+    /**
+     * Get the error response for the provided math parser exception.
+     *
+     * @param  \MathParser\Exceptions\MathParserException $error
+     * @return string
+     */
+    protected function getErrorContent(MathParserException $error)
+    {
+        $content = '';
+        $name = class_basename($error);
+
+        if ($this->data->has($name)) {
+            $content = str_replace('<DATA>', $error->getData(), collect($this->data->get($name))->random());
+        }
+
+        return $content;
     }
 }
