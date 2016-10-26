@@ -10,11 +10,18 @@ use GuzzleHttp\Exception\ClientException;
 
 final class LaravelHandler extends Handler
 {
-
+    /**
+     * @var Client
+     */
     private $client;
 
+    const VERSION_LATEST = '5.3';
+
+    private static $versions = [
+        'master', '5.3', '5.2', '5.1', '5.0', '4.2'
+    ];
+
     /**
-     * Loads GuzzleHttp Client.
      * @param Client $client
      */
     public function __construct(Client $client)
@@ -31,7 +38,7 @@ final class LaravelHandler extends Handler
             $event->isMessage() &&
             ($event->isDirectMessage() || $event->mentions($this->eve->userId())) &&
             $event->matches('/\b(laravel)\b/i')
-            ;
+        ;
     }
 
     /**
@@ -39,23 +46,24 @@ final class LaravelHandler extends Handler
      */
     public function handle(Event $event)
     {
-        $versions = [
-            'master', '5.3', '5.2', '5.1', '5.0', '4.2'
-        ];
-
         $words = explode(' ',$event->text());
 
-        if(in_array($words[2], $versions)) {
-            $version = $words[2];
-            $query = $words[3];
-        } else {
-            $version = $versions[1];
-            $query = $words[2];
-        }
+        if(preg_match('/\<@.*?\>/', $words[0]))
+            array_splice($words, 0, 1);
+
+        $version = self::VERSION_LATEST;
+        $query = null;
+
+        if(isset($words[1]))
+            in_array($words[1], self::$versions) ? $version = $words[1] : $query = $words[1];
+
+        if(isset($words[2]))
+            in_array($words[2], self::$versions) ? $version = $words[2] : $query = $words[2];
 
         try {
+            $query = urlencode($query);
             $url = "https://laravel.com/docs/$version/$query";
-            $this->client->get($url);
+            $this->client->head($url);
             $reply = $url;
         } catch (ClientException $e) {
             $reply = 'Could not find the documentation for *'.$query.'*';
