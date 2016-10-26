@@ -37,7 +37,7 @@ final class LaravelHandler extends Handler
         return
             $event->isMessage() &&
             ($event->isDirectMessage() || $event->mentions($this->eve->userId())) &&
-            $event->matches('/\b(laravel)\b/i')
+            $event->matches('/laravel .+/i')
         ;
     }
 
