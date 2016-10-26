@@ -83,6 +83,7 @@ final class CurrencyHandler extends Handler
     /**
      * @param  array $args
      * @param  integer $rates
+     * @param  integer $baseRate
      *
      * @return double
      */
