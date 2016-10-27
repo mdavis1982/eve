@@ -8,19 +8,19 @@
         "Hmm, it looks like you made a mistake"
     ],
     "UnknownConstantException": [
-        "You've used a constant I don't know about... yet..."
+        "You've used constant `<DATA>` that I don't know about... yet..."
     ],
     "UnknownFunctionException": [
-        "Sorry, but I don't recognise one of the functions that you used!"
+        "Sorry, but I don't recognise the function `<DATA>`!"
     ],
     "UnknownOperatorException": [
-        "Eek! Did you invent your own operator?"
+        "Eek! Did you invent a new operator `<DATA>`?"
     ],
     "UnknownTokenException": [
-        "I don't recognise those tokens!"
+        "I don't recognise token `<DATA>`!"
     ],
     "UnknownVariableException": [
-        "Did you forget to tell me about one of the variables?",
-        "I need all variables to calculate the outcome"
+        "You did not tell me about variable `<DATA>`...",
+        "I need all variables to calculate the outcome, so tell me what is `<DATA>`?"
     ]
 }
