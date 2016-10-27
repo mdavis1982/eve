@@ -107,7 +107,7 @@ final class CurrencyHandler extends Handler
     }
 
     /**
-     * @param  $args
+     * @param  array $args
      *
      * @return boolean
      */
