@@ -45,7 +45,7 @@ final class CurrencyHandler extends Handler
 
         $rates     = $this->data['rates'];
         $arguments = $this->arguments($event);
-        $content   = '`@eve convert 10 GPB to USD`';
+        $content   = '`@eve convert 10 GBP to USD`';
         $result    = '';
         $baseRate  = 1;
 
