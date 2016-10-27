@@ -67,6 +67,7 @@ When contributing code, testing is strongly encouraged: the more we can test now
 ### Contributors
 A number of people have helped Eve to come this far. In no particular order:
 
+- [Alexander Hjorth](https://github.com/ahjorth) (`@pistachio` on Larachat)
 - [Andreas Elia](https://github.com/andreaselia) (`@andreaselia` on Larachat)
 - [Apostolos Spanos](https://github.com/apspan)
 - [Brett Taylor](https://github.com/glutnix) (`@glutnix` on Larachat)
