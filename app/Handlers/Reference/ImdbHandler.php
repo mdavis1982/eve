@@ -52,6 +52,7 @@ final class ImdbHandler extends Handler
         $this->send(
             Message::saying($message)
                 ->inChannel($event->channel())
+                ->to($event->sender())
         );
     }
 }
