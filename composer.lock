@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a829f20983fdb66e62585d0f52674f2d",
-    "content-hash": "c464224da13f325464b363c42c702320",
+    "hash": "d2a67adb29f3948e3973524c832c2a0f",
+    "content-hash": "947ea875f5988f1117ee18b54243c63c",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -639,6 +639,97 @@
             "time": "2015-12-05 17:17:57"
         },
         {
+            "name": "jleagle/curl-wrapper",
+            "version": "0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Jleagle/curl-wrapper.git",
+                "reference": "9507ab4ca5ff05a5354c6ecb43780177d48e491d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Jleagle/curl-wrapper/zipball/9507ab4ca5ff05a5354c6ecb43780177d48e491d",
+                "reference": "9507ab4ca5ff05a5354c6ecb43780177d48e491d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "packaged/helpers": "~1.1",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jleagle\\CurlWrapper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Eagle",
+                    "email": "jimeagle@gmail.com",
+                    "homepage": "http://jimeagle.com"
+                }
+            ],
+            "description": "An object oriented wrapper around cURL",
+            "keywords": [
+                "curl",
+                "wrapper"
+            ],
+            "time": "2015-11-28 02:49:10"
+        },
+        {
+            "name": "jleagle/omdb-imdb-api-client",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Jleagle/omdb-imdb-api-client.git",
+                "reference": "8fd37f23e3cd99d08895b987f0230ebd2d4ded22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Jleagle/omdb-imdb-api-client/zipball/8fd37f23e3cd99d08895b987f0230ebd2d4ded22",
+                "reference": "8fd37f23e3cd99d08895b987f0230ebd2d4ded22",
+                "shasum": ""
+            },
+            "require": {
+                "jleagle/curl-wrapper": "~0.1",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jleagle\\Imdb\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Eagle",
+                    "email": "jimeagle@gmail.com",
+                    "homepage": "http://jimeagle.com"
+                }
+            ],
+            "description": "A package to retrieve movies and TV information from IMDB using the API at omdbapi.com",
+            "keywords": [
+                "api",
+                "client",
+                "helper",
+                "imdb",
+                "omdb"
+            ],
+            "time": "2015-11-28 12:14:36"
+        },
+        {
             "name": "laravel/framework",
             "version": "v5.3.18",
             "source": {
@@ -1115,6 +1206,45 @@
                 "php"
             ],
             "time": "2016-09-16 12:04:44"
+        },
+        {
+            "name": "packaged/helpers",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/packaged/helpers.git",
+                "reference": "9bd8fc09e11298cc0901da1d7db90a8c5a812a4d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/packaged/helpers/zipball/9bd8fc09e11298cc0901da1d7db90a8c5a812a4d",
+                "reference": "9bd8fc09e11298cc0901da1d7db90a8c5a812a4d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Packaged\\Helpers\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brooke Bryan",
+                    "email": "brooke@bajb.net"
+                }
+            ],
+            "description": "Generic PHP Helper Classes",
+            "time": "2016-06-17 10:27:19"
         },
         {
             "name": "paragonie/random_compat",

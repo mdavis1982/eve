@@ -44,6 +44,7 @@ calculate  - run a calculation                   - @eve calculate 2x + 3y --x=2 
 giphy      - get a random related GIF from Giphy - @eve giphy test
 help       - show list of available commands     - @eve help
 laravel    - search the laravel docs             - @eve laravel middleware
+imdb       - search for a movie on imdb          - @eve imdb the matrix
 ```
 
 Contributions are welcomed and encouraged.
