@@ -53,7 +53,7 @@ final class CurrencyHandler extends Handler
             $args = [
                 'conversionAmount'  => $arguments[0],
                 'primaryCurrency'   => strtoupper($arguments[1]),
-                'secondaryCurrency' => strtoupper($arguments[3]),
+                'secondaryCurrency' => $this->getCurrencyFromArg($arguments[3]),
             ];
 
             if (! array_key_exists($args['primaryCurrency'], $rates) && ! array_key_exists($args['secondaryCurrency'], $rates)) {
@@ -79,6 +79,16 @@ final class CurrencyHandler extends Handler
         );
     }
 
+    
+    /**
+     * @param  string $arg
+     *
+     * @return string
+     */
+    private function getCurrencyFromArg($arg)
+    {
+        return ($arg == '$') ? 'USD' : ($arg == '£') ? 'GBP' : strtoupper($arg);
+    }
 
     /**
      * @param  array $args
