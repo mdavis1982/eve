@@ -82,7 +82,7 @@ final class CalculateHandler extends Handler
      * @param  Event $event
      * @return string
      */
-    protected function getExpression(Event $event): string
+    protected function getExpression(Event $event)
     {
         preg_match('/(?<=calculate)(.*?)(--[\w]+|$)/im', $event->text(), $match);
 
@@ -95,7 +95,7 @@ final class CalculateHandler extends Handler
      * @param  Event $event
      * @return string[]
      */
-    protected function getVariables(Event $event): array
+    protected function getVariables(Event $event)
     {
         preg_match_all('/--(\w+)[=: ](\w+)/i', $event->text(), $matches);
 
