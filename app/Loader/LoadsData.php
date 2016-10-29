@@ -27,6 +27,17 @@ trait LoadsData
         }
 
         if (! $this->data) {
+            if (is_array($this->dataFile)) {
+                foreach ($this->dataFile as $dataFile) {
+                    $loadData = $this->loader->load(resource_path('data/') . $dataFile);
+                    $jsonName = key(get_object_vars(json_decode($loadData)));
+
+                    $this->data[$jsonName] = $loadData;
+                }
+
+                return;
+            }
+
             $this->data = $this->loader->load(resource_path('data/') . $this->dataFile);
         }
     }
