@@ -49,18 +49,24 @@ final class CurrencyHandler extends Handler
         $result    = '';
         $baseRate  = 1;
 
-        if ($arguments->count() == 4 && $this->validArguments($arguments)) {
-            $args = [
-                'conversionAmount'  => $arguments[0],
-                'primaryCurrency'   => strtoupper($arguments[1]),
-                'secondaryCurrency' => $this->getCurrencyFromArg($arguments[3]),
-            ];
+        if ($arguments->count() != 4) {
+            return;
+        }
+
+        $args = [
+            'conversionAmount'  => $arguments[0],
+            'primaryCurrency'   => strtoupper($arguments[1]),
+            'conversionText'    => strtolower($arguments[2]),
+            'secondaryCurrency' => $this->getCurrencyFromArg($arguments[3]),
+        ];
+
+        if ($this->validArguments($args)) {
 
             if (! array_key_exists($args['primaryCurrency'], $rates) && ! array_key_exists($args['secondaryCurrency'], $rates)) {
                 return;
             }
 
-            $result = $this->getConversionResult($args, $rates);
+            $result = $this->getConversionResult($args, $rates, $baseRate);
 
             $content = sprintf(
                 "<@%s> %s%s is around %s%s",
@@ -79,7 +85,7 @@ final class CurrencyHandler extends Handler
         );
     }
 
-    
+
     /**
      * @param  string $arg
      *
@@ -125,7 +131,7 @@ final class CurrencyHandler extends Handler
         return
             preg_match('/[0-9]/', $args['conversionAmount']) &&
             preg_match('/[a-zA-Z]{3}/', $args['primaryCurrency']) &&
-            trim($args[2] == 'to') &&
+            trim($args['conversionText'] == 'to') &&
             preg_match('/[a-zA-Z]{3}/', $args['secondaryCurrency'])
         ;
     }
