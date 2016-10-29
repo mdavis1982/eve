@@ -45,11 +45,10 @@ final class CurrencyHandler extends Handler
 
         $rates     = $this->data['rates'];
         $arguments = $this->arguments($event);
-        $content   = '`@eve convert 10 GBP to USD`';
-        $result    = '';
+        $content   = 'Unable to complete currency conversion, refer to `@eve help` for usage';
         $baseRate  = 1;
 
-        if ($arguments->count() != 4) {
+        if (sizeof($arguments) != 4) {
             return;
         }
 
@@ -93,7 +92,14 @@ final class CurrencyHandler extends Handler
      */
     private function getCurrencyFromArg($arg)
     {
-        return ($arg == '$') ? 'USD' : ($arg == '£') ? 'GBP' : strtoupper($arg);
+        $conversions = [
+            '$' => 'USD',
+            '£' => 'GBP'
+        ];
+
+        return array_key_exists($conversions[$arg], $conversions) ?
+            $conversions[$arg] : false
+        ;
     }
 
     /**
@@ -105,13 +111,13 @@ final class CurrencyHandler extends Handler
      */
     private function getConversionResult($args, $rates, $baseRate)
     {
-        $secondArgNotExist = array_key_exists($args['primaryCurrency'], $rates) && ! array_key_exists($args['secondaryCurrency'], $rates);
+        $hasSecondaryCurrency = array_key_exists($args['primaryCurrency'], $rates) && ! array_key_exists($args['secondaryCurrency'], $rates);
 
-        if ($secondArgNotExist && $rates[$args['primaryCurrency']] > $baseRate) {
+        if ($hasSecondaryCurrency && $rates[$args['primaryCurrency']] > $baseRate) {
             return number_format($args['conversionAmount'] * $rates[$args['primaryCurrency']], 2);
         }
 
-        if ($secondArgNotExist) {
+        if ($hasSecondaryCurrency) {
             return number_format($args['conversionAmount'] / $rates[$args['primaryCurrency']], 2);
         }
 
@@ -131,8 +137,7 @@ final class CurrencyHandler extends Handler
         return
             preg_match('/[0-9]/', $args['conversionAmount']) &&
             preg_match('/[a-zA-Z]{3}/', $args['primaryCurrency']) &&
-            trim($args['conversionText'] == 'to') &&
-            preg_match('/[a-zA-Z]{3}/', $args['secondaryCurrency'])
+            trim($args['conversionText'] == 'to')
         ;
     }
 
@@ -153,12 +158,6 @@ final class CurrencyHandler extends Handler
      */
     private function arguments(Event $event)
     {
-        preg_match_all(
-            '/([\w]+)/',
-            substr($event->text(), strpos($event->text(), 'convert ') + 8),
-            $matches
-        );
-
-        return collect($matches[0])->unique();
+        return explode(' ', substr($event->text(), strpos($event->text(), 'convert ') + 8));
     }
 }

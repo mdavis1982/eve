@@ -20,14 +20,6 @@ class Currency extends Command
     protected $description = 'Get latest currency rates from fixer.io';
 
     /**
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * @param  FixerClient $client
      *
      * @return mixed
