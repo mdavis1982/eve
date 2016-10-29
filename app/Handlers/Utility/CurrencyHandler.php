@@ -14,7 +14,7 @@ final class CurrencyHandler extends Handler
 {
     use LoadsData;
 
-    protected $dataFile = ['currency.json', 'conversions.json'];
+    protected $dataFile = 'currency.json';
 
     /**
      * @param JsonLoader $loader
@@ -43,11 +43,10 @@ final class CurrencyHandler extends Handler
     {
         $this->loadData();
 
-        $rates       = $this->data['base']['rates'];
-        $conversions = $this->data['conversions']['conversions'];
-        $arguments   = $this->arguments($event);
-        $content     = 'Unable to complete currency conversion, refer to `@eve help` for usage';
-        $baseRate    = 1;
+        $rates     = $this->data['rates'];
+        $arguments = $this->arguments($event);
+        $content   = 'Unable to complete currency conversion, refer to `@eve help` for usage';
+        $baseRate  = 1;
 
         if (sizeof($arguments) != 4) {
             return;
@@ -57,7 +56,7 @@ final class CurrencyHandler extends Handler
             'conversionAmount'  => $arguments[0],
             'primaryCurrency'   => strtoupper($arguments[1]),
             'conversionText'    => strtolower($arguments[2]),
-            'secondaryCurrency' => $this->getCurrencyFromArg($arguments[3], $conversions),
+            'secondaryCurrency' => $this->getCurrencyFromArg($arguments[3]),
         ];
 
         if ($this->validArguments($args)) {
@@ -91,8 +90,13 @@ final class CurrencyHandler extends Handler
      *
      * @return string
      */
-    private function getCurrencyFromArg($arg, $conversions)
+    private function getCurrencyFromArg($arg)
     {
+        $conversions = [
+            '$' => 'USD',
+            '£' => 'GBP'
+        ];
+
         return array_key_exists($arg, $conversions) ?
             $conversions[$arg] : false
         ;
