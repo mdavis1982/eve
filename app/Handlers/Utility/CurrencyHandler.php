@@ -97,7 +97,7 @@ final class CurrencyHandler extends Handler
             '£' => 'GBP'
         ];
 
-        return array_key_exists($conversions[$arg], $conversions) ?
+        return array_key_exists($arg, $conversions) ?
             $conversions[$arg] : false
         ;
     }
