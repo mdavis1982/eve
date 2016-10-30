@@ -11,5 +11,5 @@ interface CollectionLoader
      *
      * @return Collection
      */
-    public function load($path): Collection;
+    public function load($path);
 }
