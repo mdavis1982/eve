@@ -10,7 +10,8 @@
         "coderstephen/slack-client": "^0.2.5",
         "guzzlehttp/guzzle": "^6.2",
         "mossadal/math-parser": "^1.2",
-        "jleagle/omdb-imdb-api-client": "^0.1.0"
+        "jleagle/omdb-imdb-api-client": "^0.1.0",
+        "cmfcmf/openweathermap-php-api": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

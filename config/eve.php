@@ -19,7 +19,8 @@ return [
         App\Handlers\Reference\ImdbHandler::class,
         App\Handlers\Utility\PingHandler::class,
         App\Handlers\Utility\CalculateHandler::class,
-        App\Handlers\Utility\HelpHandler::class
+        App\Handlers\Utility\HelpHandler::class,
+        App\Handlers\Utility\WeatherHandler::class
     ],
 
     'services' => [
@@ -27,5 +28,8 @@ return [
             'base_url' => env('GIPHY_BASE_URL'),
             'api_key'  => env('GIPHY_API_KEY'),
         ],
+        'weather' => [
+            'api_key' => env('OWM_API_KEY'),
+        ]
     ],
 ];
