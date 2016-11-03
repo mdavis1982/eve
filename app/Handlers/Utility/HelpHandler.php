@@ -33,18 +33,19 @@ Send commands to Eve via mentioning or direct message.
 Currently, Eve supports the following commands:
 
 ```
-hello      - say hello to Eve                    - hello @eve
-thanks     - send a thank you to Eve             - thanks, @eve
-ping       - ping Eve, get a pong back           - ping @eve
-pun        - get Eve to say a pun                - @eve pun
-sandwich   - ask Eve to make you a sandwich      - @eve make me a sandwhich
-slap       - tell Eve to slap someone for you    - @eve slap @someone
-eight ball - see the future with Eve             - @eve 8-ball
-calculate  - run a calculation                   - @eve calculate 2x + 3y --x=2 --y=4
-giphy      - get a random related GIF from Giphy - @eve giphy test
-help       - show list of available commands     - @eve help
-laravel    - search the laravel docs             - @eve laravel middleware
-imdb       - search for a movie on imdb          - @eve imdb the matrix
+hello      - say hello to Eve                       - hello @eve
+thanks     - send a thank you to Eve                - thanks, @eve
+ping       - ping Eve, get a pong back              - ping @eve
+pun        - get Eve to say a pun                   - @eve pun
+sandwich   - ask Eve to make you a sandwich         - @eve make me a sandwhich
+slap       - tell Eve to slap someone for you       - @eve slap @someone
+eight ball - see the future with Eve                - @eve 8-ball
+calculate  - run a calculation                      - @eve calculate 2x + 3y --x=2 --y=4
+giphy      - get a random related GIF from Giphy    - @eve giphy test
+help       - show list of available commands        - @eve help
+laravel    - search the laravel docs                - @eve laravel middleware
+imdb       - search for a movie on imdb             - @eve imdb the matrix
+weather    - get the current weather for a location - @eve weather chicago
 ```
 
 Contributions are welcomed and encouraged.
