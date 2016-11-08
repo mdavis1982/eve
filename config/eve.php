@@ -29,7 +29,8 @@ return [
             'api_key'  => env('GIPHY_API_KEY'),
         ],
         'weather' => [
-            'api_key' => env('OWM_API_KEY'),
+            'base_url' => env('APIXU_BASE_URL'),
+            'api_key' => env('APIXU_API_KEY'),
         ]
     ],
 ];

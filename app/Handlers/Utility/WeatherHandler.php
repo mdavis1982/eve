@@ -10,22 +10,10 @@ use Illuminate\Support\Collection;
 
 final class WeatherHandler extends Handler
 {
-    const METRIC           = 'metric';
-    const IMPERIAL         = 'imperial';
-    const DEFAULT_LANGUAGE = 'en';
-
     /**
      * @var WeatherClient
      */
     private $client;
-
-    /**
-     * @var array
-     */
-    private static $units = [
-        self::METRIC,
-        self::IMPERIAL,
-    ];
 
     /**
      * @param WeatherClient $client
@@ -52,18 +40,16 @@ final class WeatherHandler extends Handler
      */
     public function handle(Event $event)
     {
-
         $parameters = $this->getParameters($event);
         $query      = $this->getQuery($parameters);
-        $unit       = $this->getUnit($parameters);
 
-        $response = $query ?
-            $this->client->getWeather($query, $unit, self::DEFAULT_LANGUAGE) :
-            'Please provide me with a location. Like `weather chicago ' . $unit . '`'
+        $message = $query ?
+            $this->client->getCurrent($query) :
+            'Please provide me with a location. Like `weather chicago`'
         ;
 
         $this->send(
-            Message::saying($response)
+            Message::saying($message)
                 ->inChannel($event->channel())
                 ->to($event->sender())
         );
@@ -82,24 +68,6 @@ final class WeatherHandler extends Handler
     /**
      * @param array $parameters
      *
-     * @return string
-     */
-    private function getUnit(array $parameters)
-    {
-        $unit = self::METRIC;
-
-        collect($parameters)->each(function ($parameter) use (&$unit) {
-            if (in_array($parameter, self::$units)) {
-                $unit = $parameter;
-            }
-        });
-
-        return $unit;
-    }
-
-    /**
-     * @param array $parameters
-     *
      * @return string|null
      */
     private function getQuery(array $parameters)
@@ -107,12 +75,9 @@ final class WeatherHandler extends Handler
         $query = new Collection();
 
         collect($parameters)->each(function ($parameter) use (&$query) {
-            if (!in_array($parameter, self::$units)) {
-                $query->push($parameter);
-            }
+            $query->push($parameter);
         });
 
         return $query->implode(' ') ?: null;
     }
 }
-
