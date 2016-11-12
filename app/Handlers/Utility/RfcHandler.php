@@ -39,12 +39,12 @@ final class RfcHandler extends Handler
      */
     public function handle(Event $event)
     {
-        $id = $this->getRfcId($event->text());
+        $id       = $this->getRfcId($event->text());
         $response = 'You have to provide a numeric RFC id, so I can give you the link.';
 
         if ($id) {
-            $url = $this->client->getById($id);
-            $response = $url ? $url : "I could not find a `RFC {$id}`...";
+            $url      = $this->client->getById($id);
+            $response = $url ? $url : "I could not find `RFC {$id}`...";
         }
 
         $this->send(
