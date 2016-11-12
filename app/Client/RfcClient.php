@@ -29,11 +29,15 @@ final class RfcClient
     public function getById($id)
     {
         try {
-            $url = "https://tools.ietf.org/html/rfc{$id}";
-            $response = $this->client->get($url, ['verify' => false]);
+            $url      = "https://tools.ietf.org/html/{$id}";
+            $response = $this->client->head($url, [
+                'verify'          => false,
+                'allow_redirects' => false,
+            ]);
 
-            if ($response->getStatusCode() == 200) {
-                return $url;
+            switch ($response->getStatusCode()) {
+                case 200: return $url;
+                case 302: return $response->getHeaderLine('Location');
             }
         } catch (BadResponseException $error) {
             // fall through
