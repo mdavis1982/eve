@@ -21,7 +21,7 @@ return [
         App\Handlers\Utility\CalculateHandler::class,
         App\Handlers\Utility\HelpHandler::class,
         App\Handlers\Utility\WeatherHandler::class,
-        App\Handlers\Utility\GetFileUrlHandler::class
+        App\Handlers\Utility\GetUrlHander::class
     ],
 
     'services' => [
