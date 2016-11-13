@@ -20,7 +20,8 @@ return [
         App\Handlers\Utility\PingHandler::class,
         App\Handlers\Utility\CalculateHandler::class,
         App\Handlers\Utility\HelpHandler::class,
-        App\Handlers\Utility\WeatherHandler::class
+        App\Handlers\Utility\WeatherHandler::class,
+        App\Handlers\Utility\GetFileUrlHandler::class
     ],
 
     'services' => [

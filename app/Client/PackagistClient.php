@@ -21,18 +21,39 @@ final class PackagistClient
     public function __construct(Client $client)
     {
         $this->client  = $client;
-        $this->baseUrl = "https://packagist.org/search.json?q=";
+        $this->baseUrl = "https://packagist.org/";
     }
 
-    public function linkFor($vendor="", $package=""){
-
-        if($package == ""){
-            $requestContent = "{$this->baseUrl}$vendor";    
-        }else{
-            $requestContent = "{$this->baseUrl}$vendor/$package";    
-        }
-        $response = json_decode($this->client->get($requestContent)->getBody(), true);      
-        return $response['results'][0]['url'];
+    /**
+     * Return a packagist url for the required package
+     * @param string $vendor
+     * @param string $package
+     *
+     * @return string
+     */
+    public function linkForPackage($vendor="", $package=""){
+        return "{$this->baseUrl}packages/$vendor/$package";
     }
+
+    /**
+     * Return an array of packagist url for the requested string
+     * @param string $package
+     * 
+     * @return [string]
+     */
+    public function search($package){
+        $response = json_decode(
+            $this->client->get(
+                sprintf("{$this->baseUrl}search.json?q=%s", $package)
+            )->getBody(),
+        true);
+        $results = $response['results'];
+        $packagistUrls = array_map(function($value){
+            return $value['url'];
+        }, $results);
+        return $packagistUrls;
+    }
+
+               
 
 }
