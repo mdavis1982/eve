@@ -14,7 +14,6 @@ return [
         App\Handlers\Human\ThanksHandler::class,
         App\Handlers\Media\GiphyHandler::class,
         App\Handlers\Moderation\WarnHandler::class,
-        App\Handlers\Moderation\UserJoinsChannelHandler::class,
         App\Handlers\Reference\LaravelHandler::class,
         App\Handlers\Reference\ImdbHandler::class,
         App\Handlers\Utility\PingHandler::class,
