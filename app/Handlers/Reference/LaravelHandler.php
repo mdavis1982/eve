@@ -10,7 +10,7 @@ use GuzzleHttp\Exception\ClientException;
 
 final class LaravelHandler extends Handler
 {
-    const LATEST_VERSION = '5.3';
+    const LATEST_VERSION = '5.4';
 
     /**
      * @var Client
@@ -21,7 +21,7 @@ final class LaravelHandler extends Handler
      * @var array
      */
     private static $versions = [
-        'master', '5.3', '5.2', '5.1', '5.0', '4.2'
+        'master', '5.4', '5.3', '5.2', '5.1', '5.0', '4.2'
     ];
 
     /**
