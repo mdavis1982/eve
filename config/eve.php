@@ -13,6 +13,7 @@ return [
         App\Handlers\Human\HelloHandler::class,
         App\Handlers\Human\ThanksHandler::class,
         App\Handlers\Media\GiphyHandler::class,
+        App\Handlers\Media\ImvdbHandler::class,
         App\Handlers\Moderation\WarnHandler::class,
         App\Handlers\Reference\LaravelHandler::class,
         App\Handlers\Reference\ImdbHandler::class,

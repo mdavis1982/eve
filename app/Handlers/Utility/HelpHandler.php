@@ -46,6 +46,7 @@ help       - show list of available commands        - @eve help
 laravel    - search the laravel docs                - @eve laravel middleware
 imdb       - search for a movie on imdb             - @eve imdb the matrix
 weather    - get the current weather for a location - @eve weather chicago
+music      - search for a music video on imvdb      - @eve music abba mamma mia
 ```
 
 Contributions are welcomed and encouraged.
