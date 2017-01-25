@@ -62,6 +62,6 @@ final class RfcHandler extends Handler
      */
     private function getRfcId($query)
     {
-        return filter_var($query, FILTER_SANITIZE_NUMBER_INT);
+        return filter_var(substr($query, strpos($query, 'rfc ') + 4), FILTER_SANITIZE_NUMBER_INT);
     }
 }
