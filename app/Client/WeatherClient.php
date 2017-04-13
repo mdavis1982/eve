@@ -4,7 +4,6 @@ namespace App\Client;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Exception\ClientException;
 
 final class WeatherClient
 {
