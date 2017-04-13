@@ -28,8 +28,8 @@ final class WarnHandler extends Handler
      */
     public function canHandle(Event $event)
     {
-        return 
-            $event->isMessage() && 
+        return
+            $event->isMessage() &&
             $event->isDirectMessage() &&
             $this->eve->userIsAdmin($event->sender()) &&
             $event->matches('/warn ./i')
@@ -73,8 +73,8 @@ final class WarnHandler extends Handler
     private function receivers(Event $event)
     {
         preg_match_all(
-            '/<@([\w]+)>/', 
-            substr($event->text(), strpos($event->text(), 'warn ') + 5), 
+            '/<@([\w]+)>/',
+            substr($event->text(), strpos($event->text(), 'warn ') + 5),
             $matches
         );
 

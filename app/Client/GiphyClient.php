@@ -43,7 +43,7 @@ final class GiphyClient
                 "{$this->baseUrl}?api_key=%s&s=%s&limit=1&rating=pg-13",
                 $this->apiKey,
                 urlencode($query)
-            ))->getBody(), 
+            ))->getBody(),
             true
         );
 

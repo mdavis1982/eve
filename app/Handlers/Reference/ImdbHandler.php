@@ -45,7 +45,7 @@ final class ImdbHandler extends Handler
         try {
             $results = $this->imdb->search($query);
             $message = 'http://imdb.com/title/'.$results[0]->imdbId;
-        } catch(ImdbException $e) {
+        } catch (ImdbException $e) {
             $message = "Movie not found";
         }
 

@@ -72,7 +72,7 @@ final class Eve
      */
     public function connect()
     {
-        return $this->client->connect()->then(function () { 
+        return $this->client->connect()->then(function () {
             $this->client->getAuthedUser()->then(function (User $user) {
                 $this->me = $user;
             });

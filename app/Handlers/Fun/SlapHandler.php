@@ -28,8 +28,8 @@ final class SlapHandler extends Handler
      */
     public function canHandle(Event $event)
     {
-        return 
-            $event->isMessage() && 
+        return
+            $event->isMessage() &&
             $event->mentions($this->eve->userId()) &&
             $event->matches('/slap .+/i')
         ;
@@ -74,8 +74,8 @@ final class SlapHandler extends Handler
     private function receivers(Event $event)
     {
         preg_match_all(
-            '/(<@[\w]+>)/', 
-            substr($event->text(), strpos($event->text(), 'slap ') + 5), 
+            '/(<@[\w]+>)/',
+            substr($event->text(), strpos($event->text(), 'slap ') + 5),
             $matches
         );
 

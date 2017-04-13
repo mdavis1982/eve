@@ -45,9 +45,9 @@ class Run extends Command
         $this->line('');
         $this->line('Connecting to Slack...');
 
-        $eve->connect()->then(function() {
+        $eve->connect()->then(function () {
             $this->info('Connected Successfully!');
-        }, function(\Exception $exception) {
+        }, function (\Exception $exception) {
             $this->error($exception->getMessage());
         });
 

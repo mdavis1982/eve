@@ -32,8 +32,8 @@ final class ThanksHandler extends Handler
      */
     public function canHandle(Event $event)
     {
-        return 
-            $event->isMessage() && 
+        return
+            $event->isMessage() &&
             ($event->isDirectMessage() || $event->mentions($this->eve->userId())) &&
             $event->matches('/\b(Thanks|Cheers|Thankyou|Thank you)\b/i')
         ;

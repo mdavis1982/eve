@@ -36,8 +36,10 @@ final class RfcClient
             ]);
 
             switch ($response->getStatusCode()) {
-                case 200: return $url;
-                case 302: return $response->getHeaderLine('Location');
+                case 200:
+                    return $url;
+                case 302:
+                    return $response->getHeaderLine('Location');
             }
         } catch (BadResponseException $error) {
             // fall through

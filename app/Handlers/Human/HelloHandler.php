@@ -27,8 +27,8 @@ final class HelloHandler extends Handler
      */
     public function canHandle(Event $event)
     {
-        return 
-            $event->isMessage() && 
+        return
+            $event->isMessage() &&
             ($event->isDirectMessage() || $event->mentions($this->eve->userId())) &&
             $event->matches('/\b(Hello|Hi|Hey|Yo)\b/i')
         ;
