@@ -3,6 +3,8 @@
 namespace App\Client;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ClientException;
 
 final class WeatherClient
 {
@@ -38,16 +40,27 @@ final class WeatherClient
      */
     public function getCurrent($query)
     {
-        $response = json_decode(
-            $this->client->get(sprintf(
-                "{$this->baseUrl}/current.json?key=%s&q=%s",
-                $this->apiKey,
-                urlencode($query)
-            ))->getBody(),
-            true
-        );
+        try {
+            $response = json_decode(
+                $this->client->get(sprintf(
+                    "{$this->baseUrl}/current.json?key=%s&q=%s",
+                    $this->apiKey,
+                    urlencode($query)
+                ))->getBody(),
+                true
+            );
 
-        return $this->buildCurrentResponse($response);
+            return $this->buildCurrentResponse($response);
+        } catch (BadResponseException $e) {
+            $response = json_decode(
+                $e->getResponse()->getBody()->getContents(),
+                true
+            );
+
+            return $response['error']['message'];
+        }
+
+        return "Unknown error occurred";
     }
 
     /**
@@ -56,10 +69,6 @@ final class WeatherClient
      */
     private function buildCurrentResponse(array $response)
     {
-        if (array_key_exists('error', $response)) {
-            return $response['error']['message'];
-        }
-
         return sprintf(
             "Here is the current weather for *%s*\nLocation: *%s, %s*\nCondition: *%s*\nTemperature: *%dºC / %dF*\nLast Updated: %s",
             $response['location']['name'],
